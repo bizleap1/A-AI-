@@ -322,11 +322,17 @@ section {
     }
     
     .nav-links.active {
-        display: flex;
+        display: flex !important;
     }
     
     .menu-toggle {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        z-index: 1001;
+        position: relative;
     }
 
     .glass-card { padding: 1.5rem; }
@@ -335,12 +341,13 @@ section {
 /* Mobile Hamburger Toggle Button */
 .menu-toggle {
     display: none;
-    font-size: 1.8rem;
+    font-size: 2rem;
     cursor: pointer;
-    background: none;
+    background: transparent;
     border: none;
     color: var(--black);
     padding: 0;
     line-height: 1;
+    -webkit-tap-highlight-color: transparent;
 }
 

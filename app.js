@@ -21,8 +21,10 @@ window.addEventListener('load', () => {
         }, 1000);
     }
     initSharedInteractions();
-    initMobileNav();
 });
+
+// Initialize mobile nav immediately to avoid waiting for heavy images
+initMobileNav();
 
 // Mobile Navbar Toggle
 function initMobileNav() {
