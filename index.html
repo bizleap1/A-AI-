@@ -22,7 +22,8 @@
         /* Robot Wrapper for Splitting */
         .robot-activation-area {
             position: relative;
-            width: 600px;
+            width: 100%;
+            max-width: 600px;
             height: 80vh;
             display: flex;
             justify-content: center;
@@ -46,10 +47,10 @@
         .robot-panel {
             position: absolute;
             top: 10%; /* Center vertically slightly */
-            width: 300px;
+            width: 50%;
             height: 80%;
             background-image: url('assets/robot.png');
-            background-size: 600px 100%;
+            background-size: 200% 100%;
             background-repeat: no-repeat;
             z-index: 10;
             transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -139,6 +140,12 @@
             opacity: 0.05;
             z-index: 1;
         }
+
+        /* Mobile specific overrides for Hero */
+        @media (max-width: 768px) {
+            .cards-float-container { display: none; }
+            .reveal-text { font-size: 3.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -147,6 +154,7 @@
             <img src="assets/logo.png" alt="">
             <span>A AI</span>
         </a>
+        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="solutions.html">Solutions</a>

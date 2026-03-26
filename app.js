@@ -21,7 +21,20 @@ window.addEventListener('load', () => {
         }, 1000);
     }
     initSharedInteractions();
+    initMobileNav();
 });
+
+// Mobile Navbar Toggle
+function initMobileNav() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+    }
+}
 
 // 1. Three.js Living AI Core
 function initAICore() {
