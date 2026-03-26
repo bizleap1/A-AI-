@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A AI | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        /* Robot Wrapper for Splitting */
+        .robot-activation-area {
+            position: relative;
+            width: 600px;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: -100px;
+        }
+
+        /* The Internal Core Layer */
+        #core-canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.5);
+            filter: blur(10px);
+        }
+
+        /* The Robot Panels (Left and Right) */
+        .robot-panel {
+            position: absolute;
+            top: 10%; /* Center vertically slightly */
+            width: 300px;
+            height: 80%;
+            background-image: url('/assets/robot-DGhIjoN3.png');
+            background-size: 600px 100%;
+            background-repeat: no-repeat;
+            z-index: 10;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            mask-image: radial-gradient(ellipse at center, black 70%, transparent 95%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 95%);
+        }
+
+        .panel-left {
+            left: 0;
+            background-position: left center;
+        }
+
+        .panel-right {
+            right: 0;
+            background-position: right center;
+        }
+
+        /* Activation Ripple */
+        .energy-ripple {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            z-index: 4;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Holographic Reveal UI */
+        .hologram-ui {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .vignette-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 50%, rgba(255,255,255,0.9) 100%);
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .reveal-text {
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .reveal-text span { color: var(--gold); }
+
+        /* Floating UI Cards */
+        .cards-float-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 25;
+            pointer-events: none;
+        }
+
+        .floating-ui-card {
+            position: absolute;
+            width: 240px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        #neural-canvas-global {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: 1;
+        }
+    </style>
+  <link rel="stylesheet" crossorigin href="/assets/global-DaPpTiO3.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="/assets/logo-CAA6isEo.png" alt="">
+            <span>A AI</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="tech.html">The Tech</a>
+            <a href="company.html">Company</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <canvas id="neural-canvas-global"></canvas>
+        <div class="vignette-overlay"></div>
+
+        <div class="robot-activation-area">
+            <!-- Internal Glow Core -->
+            <canvas id="core-canvas"></canvas>
+            
+            <!-- External Body Panels -->
+            <div class="robot-panel panel-left" id="p-left"></div>
+            <div class="robot-panel panel-right" id="p-right"></div>
+
+            <div class="energy-ripple" id="ripple"></div>
+        </div>
+
+        <div class="hologram-ui">
+            <h1 class="reveal-text">A <span>AI</span></h1>
+            <p class="tagline" style="opacity: 0; letter-spacing: 8px; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Innovation, Research and Development</p>
+            <span class="answer-yes" style="opacity: 0; font-size: 1.5rem; margin-top: 2rem;">Answer is Yes!</span>
+            <br>
+            <div class="cta-reveal" style="opacity: 0; pointer-events: auto;">
+                <a href="#who-we-are" class="btn-gold">Explore the Future</a>
+            </div>
+        </div>
+
+        <div class="cards-float-container">
+            <div class="floating-ui-card glass-card" style="top: 20%; left: 10%;" id="card-1">
+                <div style="color: var(--gold); margin-bottom: 0.5rem;">● AI CHAT INTERFACE</div>
+                <p style="font-size: 0.8rem;">Ready for synthesis...</p>
+            </div>
+            <div class="floating-ui-card glass-card" style="top: 25%; right: 10%;" id="card-2">
+                <div style="color: var(--gold); margin-bottom: 0.5rem;">◆ ANALYTICS CORE</div>
+                <p style="font-size: 0.8rem;">Data points synchronized.</p>
+            </div>
+            <div class="floating-ui-card glass-card" style="bottom: 20%; left: 12%;" id="card-3">
+                <div style="color: var(--gold); margin-bottom: 0.5rem;">▣ AUTOMATION GRID</div>
+                <p style="font-size: 0.8rem;">Flow optimized.</p>
+            </div>
+            <div class="floating-ui-card glass-card" style="bottom: 25%; right: 12%;" id="card-4">
+                <div style="color: var(--gold); margin-bottom: 0.5rem;">☼ DATA VISUALIZATION</div>
+                <p style="font-size: 0.8rem;">Mapping complexity...</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="who-we-are" style="background: linear-gradient(135deg, #fff 0%, #fefcf5 100%); position: relative; overflow: hidden; padding: 8rem 10%;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
+            <span class="section-tag" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 50px; margin-bottom: 2rem;">WHO WE ARE</span>
+            <h2 class="manifesto-quote" style="font-size: 2.8rem; line-height: 1.2; margin-bottom: 3rem; max-width: 900px; margin-inline: auto;">Most technology companies start with a question: "What can we build?" <br><span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">We start with an answer.</span></h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; text-align: left; margin-top: 4rem;">
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.9); border-top: 4px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.03); transition: transform 0.4s; cursor: default;" onmouseover="this.style.transform='translateY(-10px)';" onmouseout="this.style.transform='translateY(0)';">
+                    <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">🚀</div>
+                    <p style="font-size: 1.1rem; color: #555; line-height: 1.8;">Yes, we can solve problems that seem impossible. Yes, we can build what has never been built. Yes, we can go where no one has gone.</p>
+                </div>
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.9); border-top: 4px solid #111; box-shadow: 0 20px 50px rgba(0,0,0,0.03); transition: transform 0.4s; cursor: default;" onmouseover="this.style.transform='translateY(-10px)';" onmouseout="this.style.transform='translateY(0)';">
+                    <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">🔬</div>
+                    <p style="font-size: 1.1rem; color: #555; line-height: 1.8;">We are A AI Innovation, Research and Development. A foundry for the future. A place where the answer to humanity's biggest challenges is always the same:</p>
+                    <span class="answer-yes" style="font-size: 1.8rem; margin-top: 1rem; display: inline-block; border-bottom: 2px solid var(--gold);">Yes.</span>
+                </div>
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.9); border-top: 4px solid #444; box-shadow: 0 20px 50px rgba(0,0,0,0.03); transition: transform 0.4s; cursor: default;" onmouseover="this.style.transform='translateY(-10px)';" onmouseout="this.style.transform='translateY(0)';">
+                    <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">⚙️</div>
+                    <p style="font-size: 1.1rem; color: #555; line-height: 1.8;">We build the foundational technologies upon which the next human civilization will stand. AI. Quantum. Robotics. Materials. Space.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative bg blur -->
+        <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: rgba(212, 175, 55, 0.15); filter: blur(100px); border-radius: 50%;"></div>
+    </section>
+
+    <section style="background: #0a0a0a; color: #fff; position: relative; padding: 8rem 10%; overflow: hidden;">
+        <div style="display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; position: relative; z-index: 2;">
+            <div style="flex: 1.2; min-width: 300px;">
+                <span class="section-tag" style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;">OUR BELIEF</span>
+                <h2 class="premium-title" style="color: #fff; font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1;">The Universe is <br><span style="color: var(--gold);">Knowable.</span></h2>
+                <div class="philosophy-text" style="text-align: left; margin: 2rem 0 0; color: #ccc; font-size: 1.15rem; line-height: 1.8;">
+                    <p>We believe problems are solvable. We believe the future is buildable.</p>
+                    <br>
+                    <p>We believe that with enough intelligence, enough courage, and enough conviction, there is no question to which the answer is not yes.</p>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-left: 4px solid var(--gold); padding: 4rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+                    <div style="position: absolute; top: -10px; left: 20px; font-size: 6rem; color: rgba(212,175,55,0.15); font-family: serif; line-height: 1;">"</div>
+                    <p style="font-family: var(--font-heading); font-size: 2rem; line-height: 1.4; color: #fff; position: relative; z-index: 2;">This is not optimism.<br><span style="color: var(--gold);">This is conviction.</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- glowing bg line -->
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity: 0.3;"></div>
+    </section>
+
+    <section style="background: #fafafa; padding: 8rem 10%; text-align: center; position: relative;">
+        <span class="section-tag" style="margin-bottom: 1.5rem;">OUR INVITATION</span>
+        <h2 class="manifesto-quote" style="font-size: 3.5rem; margin-bottom: 5rem;">You have questions about the future. <br><span style="color: var(--gold);">We have one answer.</span></h2>
+        
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 4rem;">
+            <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; background: #fff; border: 1px solid #eee; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateX(15px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(212,175,55,0.15)';" onmouseout="this.style.borderColor='#eee'; this.style.transform='translateX(0) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
+                <span style="font-size: 1.3rem; font-weight: 500; color: #222;">Can we fix climate change?</span>
+                <span class="answer-yes" style="margin: 0; font-size: 1.5rem;">Yes</span>
+            </div>
+            <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; background: #fff; border: 1px solid #eee; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateX(15px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(212,175,55,0.15)';" onmouseout="this.style.borderColor='#eee'; this.style.transform='translateX(0) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
+                <span style="font-size: 1.3rem; font-weight: 500; color: #222;">Can we cure aging?</span>
+                <span class="answer-yes" style="margin: 0; font-size: 1.5rem;">Yes</span>
+            </div>
+            <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; background: #fff; border: 1px solid #eee; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateX(15px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(212,175,55,0.15)';" onmouseout="this.style.borderColor='#eee'; this.style.transform='translateX(0) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
+                <span style="font-size: 1.3rem; font-weight: 500; color: #222;">Can we reach the stars?</span>
+                <span class="answer-yes" style="margin: 0; font-size: 1.5rem;">Yes</span>
+            </div>
+        </div>
+
+        <a href="contact.html" class="btn-gold" style="font-size: 1.1rem; padding: 1.2rem 3.5rem; box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);">Come Build With Us</a>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <img src="/assets/logo-CAA6isEo.png" alt="A AI Logo">
+                    <span>A AI</span>
+                </a>
+                <p class="footer-description">A AI Innovation, Research and Development. Answer is Yes!</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="tech.html">The Tech</a></li>
+                    <li><a href="company.html">Company</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Fashion Factory, SS Dhage Rd,</p>
+                <p>Gultekdi Rd/Shankar Rao Lohane Marg, Pune</p>
+                <p>Phone: <a href="tel:+917097095152">7097095152</a></p>
+                <a href="contact.html" class="btn-gold" style="padding: 0.5rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: inline-block;">Get in Touch</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 A AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
