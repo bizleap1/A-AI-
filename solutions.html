@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solutions | A AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="global.css">
+    <style>
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .solution-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="assets/logo.png" alt="">
+            <span>A AI</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="tech.html">The Tech</a>
+            <a href="company.html">Company</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <section style="padding: 10rem 10% 6rem; background: #0a0a0a; color: #fff; position: relative;">
+        <!-- Glowing bg effect -->
+        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.15), transparent 70%); pointer-events: none;"></div>
+        
+        <div style="position: relative; z-index: 2; text-align: center;">
+            <span class="section-tag" style="color: rgba(255,255,255,0.6);">THE FIVE FRONTIERS</span>
+            <h1 class="premium-title" style="color: #fff; font-size: clamp(3.5rem, 5vw, 5rem);">The <span style="color: var(--gold);">Panchtatva</span></h1>
+            <p class="philosophy-text" style="color: #ccc; margin: 1.5rem auto 0; max-width: 800px; font-size: 1.15rem;">The ancient rishis understood reality as a convergence of five fundamental forces. Today, we have new tools—AI, quantum computing, robotics, synthetic biology—to fulfill this ancient wisdom.</p>
+        </div>
+
+        <div class="panchtatva-grid" style="margin-top: 5rem;">
+            <!-- AGNI -->
+            <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; cursor: pointer;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-10px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                <div class="section-tag">AGNI — FIRE</div>
+                <h3 style="color: #fff; font-family: var(--font-heading); font-size: 1.4rem;">Intelligence + Matter</h3>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #aaa;">Energy. Transformation. Intelligence.</p>
+                <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    <p style="font-size: 0.8rem; color: #888;">Can machines think beyond humans?</p>
+                    <span class="answer-yes" style="font-size: 1rem; color: var(--gold); margin-top: 0.5rem;">Answer is Yes!</span>
+                </div>
+            </div>
+
+            <!-- VAYU -->
+            <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; cursor: pointer;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-10px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                <div class="section-tag">VAYU — AIR</div>
+                <h3 style="color: #fff; font-family: var(--font-heading); font-size: 1.4rem;">Robotics + Trust</h3>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #aaa;">Movement. Connectivity. Invisible Force.</p>
+                <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    <p style="font-size: 0.8rem; color: #888;">Can machines operate anywhere?</p>
+                    <span class="answer-yes" style="font-size: 1rem; color: var(--gold); margin-top: 0.5rem;">Answer is Yes!</span>
+                </div>
+            </div>
+
+            <!-- JAL -->
+            <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; cursor: pointer;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-10px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                <div class="section-tag">JAL — WATER</div>
+                <h3 style="color: #fff; font-family: var(--font-heading); font-size: 1.4rem;">Climate + Biology</h3>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #aaa;">Life. Flow. Healing.</p>
+                <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    <p style="font-size: 0.8rem; color: #888;">Can we reverse climate damage?</p>
+                    <span class="answer-yes" style="font-size: 1rem; color: var(--gold); margin-top: 0.5rem;">Answer is Yes!</span>
+                </div>
+            </div>
+
+            <!-- PRITHVI -->
+            <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; cursor: pointer;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-10px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                <div class="section-tag">PRITHVI — EARTH</div>
+                <h3 style="color: #fff; font-family: var(--font-heading); font-size: 1.4rem;">Structure + Foundation</h3>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #aaa;">Structure. Resources. Foundation.</p>
+                <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    <p style="font-size: 0.8rem; color: #888;">Can we make trust unbreakable?</p>
+                    <span class="answer-yes" style="font-size: 1rem; color: var(--gold); margin-top: 0.5rem;">Answer is Yes!</span>
+                </div>
+            </div>
+
+            <!-- AKASH -->
+            <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; cursor: pointer;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-10px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                <div class="section-tag">AKASH — SKY</div>
+                <h3 style="color: #fff; font-family: var(--font-heading); font-size: 1.4rem;">Space + Intelligence</h3>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #aaa;">Space. Infinity. Beyond.</p>
+                <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    <p style="font-size: 0.8rem; color: #888;">Can we live off this planet?</p>
+                    <span class="answer-yes" style="font-size: 1rem; color: var(--gold); margin-top: 0.5rem;">Answer is Yes!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: linear-gradient(135deg, #fefcf5 0%, #fff 100%);">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom: 4rem;">
+            <span class="section-tag" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 50px;">OUR SERVICES</span>
+            <h2 class="premium-title" style="font-size: 3.5rem;">Built for <span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Scale</span></h2>
+        </div>
+        
+        <div class="solutions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
+                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🎙️</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Voice AI Agent</h3>
+                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">AI-powered voice assistant to handle calls, follow-ups, and client communication 24/7.</p>
+            </div>
+            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
+                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">⚙️</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Bespoke AI Plans</h3>
+                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Tailored artificial intelligence strategies designed specifically for your unique operational needs.</p>
+            </div>
+            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
+                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🚀</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Speed to Market</h3>
+                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Our streamlined process gets you from concept to deployment 60% faster.</p>
+            </div>
+            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
+                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🛠️</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Custom Solutions</h3>
+                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">We build exactly what you need, ensuring your foundation is highly customized.</p>
+            </div>
+            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
+                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🤝</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Ongoing Support</h3>
+                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Continuous operational support and scaling maintenance to keep systems optimal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: #fafafa; text-align: center;">
+        <h2 class="manifesto-quote">Wherever the hardest problems live, we show up.</h2>
+        <a href="contact.html" class="btn-gold">Join the Frontier</a>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" alt="A AI Logo">
+                    <span>A AI</span>
+                </a>
+                <p class="footer-description">A AI Innovation, Research and Development. Answer is Yes!</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="tech.html">The Tech</a></li>
+                    <li><a href="company.html">Company</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Fashion Factory, SS Dhage Rd,</p>
+                <p>Gultekdi Rd/Shankar Rao Lohane Marg, Pune</p>
+                <p>Phone: <a href="tel:+917097095152">7097095152</a></p>
+                <a href="contact.html" class="btn-gold" style="padding: 0.5rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: inline-block;">Get in Touch</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 A AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
