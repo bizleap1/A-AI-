@@ -1,5 +1,6 @@
-// Main A AI Logic
-console.log("A AI System Loading...");
+import * as THREE from 'three';
+import { gsap } from 'gsap';
+
 
 window.addEventListener('load', () => {
     console.log("DOM and Assets Loaded. Initializing...");
