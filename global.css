@@ -302,6 +302,19 @@ section {
     .philosophy-text { font-size: 1.1rem !important; }
 }
 
+/* Mobile Hamburger Toggle Button */
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--black);
+    padding: 0;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+
 @media (max-width: 768px) {
     nav { padding: 1rem 5%; }
     
@@ -337,17 +350,3 @@ section {
 
     .glass-card { padding: 1.5rem; }
 }
-
-/* Mobile Hamburger Toggle Button */
-.menu-toggle {
-    display: none;
-    font-size: 2rem;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    color: var(--black);
-    padding: 0;
-    line-height: 1;
-    -webkit-tap-highlight-color: transparent;
-}
-
