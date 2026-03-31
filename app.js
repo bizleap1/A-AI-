@@ -196,4 +196,114 @@ function initSharedInteractions() {
         });
         btn.addEventListener('mouseleave', () => gsap.to(btn, { transform: 'scale(1) translate(0,0)', duration: 0.3 }));
     });
+
+    initServiceModals();
+}
+
+function initServiceModals() {
+    const modal = document.getElementById('service-modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.querySelector('.modal-close');
+    const triggers = document.querySelectorAll('.service-trigger');
+
+    if (!modal || !modalBody || !triggers.length) return;
+
+    const serviceData = {
+        'voice-ai': {
+            tag: '02 — ALWAYS ON',
+            title: 'Smarter. Faster. Always On.',
+            desc: 'AI never sleeps. Scale your business while our tech handles the grind.',
+            bullets: [
+                'AI solutions that work 24/7 — no downtime, no burnout',
+                'Instant response systems for support, sales, and more',
+                'Faster decision-making with real-time data analysis',
+                'Scalable infrastructure built for your future, not just today'
+            ]
+        },
+        'bespoke-plans': {
+            tag: '01 — AUTOMATE IT',
+            title: 'Automate It.',
+            desc: 'Break free from repetitive busywork. Transform workflows with sharp, efficient AI systems.',
+            bullets: [
+                'Eliminate repetitive tasks with precision-built AI workflows',
+                'Free up your team’s time for high-impact work',
+                'Automate lead follow-ups, scheduling, and data entry',
+                'Seamlessly integrate with your existing tools and platforms'
+            ]
+        },
+        'speed-market': {
+            tag: '03 — ROI FAST',
+            title: 'ROI, Delivered Fast.',
+            desc: 'Rapid setup, clear value, measurable returns, no waiting.',
+            bullets: [
+                'Get fully deployed in days — not weeks or months',
+                'See measurable results with clear KPIs from day one',
+                'No fluff — just performance-driven automation',
+                'Transparent reporting and ongoing optimization included'
+            ]
+        },
+        'custom-solutions': {
+            tag: '04 — SCALE',
+            title: 'Transform at Scale.',
+            desc: 'Break operational silos and unlock efficiency across your enterprise.',
+            bullets: [
+                'Save millions annually by automating repetitive processes',
+                'Unlock workforce capacity for strategic, revenue-generating initiatives',
+                'Increase conversion rates with intelligent lead qualification/conversion',
+                'Seamlessly integrate with your existing enterprise software'
+            ]
+        },
+        'ongoing-support': {
+            tag: '05 — SUPPORT',
+            title: 'Continuous Excellence.',
+            desc: 'We don\'t just deploy; we evolve with you. Real-time monitoring and adaptive scaling.',
+            bullets: [
+                '24/7 technical surveillance of AI performance',
+                'Proactive updates as base models (v4, v5, etc.) evolve',
+                'Iterative prompt engineering for better results over time',
+                'Dedicated success manager for enterprise clients'
+            ]
+        }
+    };
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const id = trigger.getAttribute('data-service-id');
+            const data = serviceData[id];
+            if (!data) return;
+
+            modalBody.innerHTML = `
+                <div class="modal-header">
+                    <div class="modal-tag">${data.tag}</div>
+                    <h2>${data.title}</h2>
+                    <p class="philosophy-text" style="text-align: left; margin: 0; font-size: 1.4rem;">${data.desc}</p>
+                </div>
+                <ul class="modal-service-list">
+                    ${data.bullets.map(b => `<li>${b}</li>`).join('')}
+                </ul>
+                <div style="margin-top: 4rem;">
+                    <a href="contact.html" class="btn-gold">Consult Our Engineers</a>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Re-initialize button interactions for the new button
+            initSharedInteractions();
+        });
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
 }
