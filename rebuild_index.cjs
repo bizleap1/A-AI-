@@ -1,213 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A AI | Home</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="global.css">
-    <style>
-        .hero {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            background: #fff; /* Reverted to white */
-        }
+const fs = require('fs');
+let html = fs.readFileSync('index.html', 'utf8');
 
-        .robot-activation-area {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 5;
-        }
-
-        #core-canvas {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-            pointer-events: none;
-            opacity: 0;
-            transform: scale(0.5);
-            filter: blur(10px);
-        }
-
-        .robot-panel {
-            position: absolute;
-            top: 5%;
-            width: 50%;
-            height: 90%;
-            background-image: url('assets/robot.png');
-            background-size: 200% 100%;
-            background-repeat: no-repeat;
-            z-index: 2; /* Behind the core and UI */
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            mask-image: radial-gradient(ellipse at center, black 70%, transparent 95%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 95%);
-            opacity: 1;
-        }
-
-        .panel-left { left: 0; background-position: left center; }
-        .panel-right { right: 0; background-position: right center; }
-
-        .energy-ripple {
-            position: absolute;
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            z-index: 1;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .vignette-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(255,255,255,0.7) 100%); /* White vignette */
-            z-index: 10; pointer-events: none;
-        }
-
-        .cards-float-container {
-            position: absolute; width: 100%; height: 100%;
-            z-index: 30; pointer-events: none;
-        }
-
-        .floating-ui-card {
-            position: absolute; width: 240px;
-            opacity: 0; transform: translateY(50px);
-            background: rgba(255,255,255,0.8) !important;
-            border: 1px solid rgba(0,0,0,0.05) !important;
-            color: #111 !important;
-            backdrop-filter: blur(10px);
-            z-index: 40;
-        }
-
-        #neural-canvas-global {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.08; z-index: 0;
-        }
-
-        .orbit-node {
-            position: absolute; display: flex; flex-direction: column;
-            align-items: center; gap: 0.6rem; text-decoration: none;
-            z-index: 40; pointer-events: auto; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0;
-        }
-        .orbit-node:hover { transform: scale(1.2) !important; }
-        .orbit-icon {
-            width: 60px; height: 60px; border-radius: 50%;
-            background: #fff; border: 1px solid rgba(212,175,55,0.3);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.6rem; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-        .orbit-node:hover .orbit-icon { 
-            background: var(--gold); 
-            border-color: #fff;
-            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
-            transform: rotate(10deg);
-        }
-        .orbit-label {
-            font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
-            text-transform: uppercase; color: #111; white-space: nowrap;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.5);
-        }
-
-        @keyframes spinText { to { transform: rotate(360deg); } }
-
-        @media (max-width: 768px) {
-            .cards-float-container { display: none; }
-            .orbit-node { display: none; }
-            .robot-activation-area { max-width: 100%; height: 50vh; }
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <a href="index.html" class="logo">
-            <img src="assets/logo.png" alt="">
-            <span>A AI</span>
-        </a>
-        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
+// 1. Update nav links (remove Company, add Blogs/Careers)
+html = html.replace(
+    /<a href="index\.html">Home<\/a>[\s\S]*?<a href="contact\.html">Contact<\/a>/,
+    `<a href="index.html">Home</a>
             <a href="solutions.html">Solutions</a>
             <a href="tech.html">The Tech</a>
-            <a href="blogs.html">Journal</a>
+            <a href="blogs.html">Blogs</a>
             <a href="careers.html">Careers</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
+            <a href="contact.html">Contact</a>`
+);
 
-    <div class="hero">
-        <canvas id="neural-canvas-global"></canvas>
-        <div class="vignette-overlay"></div>
+// 2. Replace barriers + transformation + outcomes sections with Why Us + About Us + 2047 Vision + Leadership
+const oldSectionsStart = html.indexOf('<section id="barriers"');
+const frameworkStart = html.indexOf('<section id="framework"');
 
-        <div class="robot-activation-area">
-            <canvas id="core-canvas"></canvas>
-            <div class="robot-panel panel-left" id="p-left"></div>
-            <div class="robot-panel panel-right" id="p-right"></div>
-            <div class="energy-ripple" id="ripple"></div>
+if (oldSectionsStart === -1 || frameworkStart === -1) {
+    console.log('ERROR: Could not find section markers. barriers:', oldSectionsStart, 'framework:', frameworkStart);
+    process.exit(1);
+}
 
-            <!-- अ + Spinning ring overlay -->
-            <div id="circle-badge" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none;">
-                <svg viewBox="0 0 200 200" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: spinText 20s linear infinite;">
-                    <defs><path id="circleOrbit" d="M 100,100 m -85,0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0" /></defs>
-                    <text font-size="9" font-family="'Inter', sans-serif" font-weight="700" letter-spacing="4" fill="#111">
-                        <textPath href="#circleOrbit">INNOVATION • RESEARCH • DEVELOPMENT • </textPath>
-                    </text>
-                </svg>
-                <span style="font-family: 'Outfit', sans-serif; font-size: 7rem; font-weight: 700; color: #111; text-shadow: 0 0 30px rgba(212,175,55,0.3); position: relative; z-index: 2; line-height: 1;">अ</span>
-            </div>
-
-            <!-- Orbital nav nodes -->
-            <a href="solutions.html" class="orbit-node" style="top: calc(50% - 250px); left: 50%; transform: translateX(-50%);">
-                <div class="orbit-icon">⚡</div><span class="orbit-label">Solutions</span>
-            </a>
-            <a href="tech.html" class="orbit-node" style="top: 50%; left: calc(50% + 250px); transform: translateY(-50%);">
-                <div class="orbit-icon">🔬</div><span class="orbit-label">The Tech</span>
-            </a>
-            <a href="blogs.html" class="orbit-node" style="bottom: calc(50% - 250px); right: calc(50% - 200px);">
-                <div class="orbit-icon">📝</div><span class="orbit-label">Blogs</span>
-            </a>
-            <a href="careers.html" class="orbit-node" style="bottom: calc(50% - 250px); left: calc(50% - 200px);">
-                <div class="orbit-icon">🚀</div><span class="orbit-label">Careers</span>
-            </a>
-            <a href="contact.html" class="orbit-node" style="top: 50%; left: calc(50% - 300px); transform: translateY(-50%);">
-                <div class="orbit-icon">✉️</div><span class="orbit-label">Contact</span>
-            </a>
-        </div>
-
-        <div style="position: absolute; bottom: 8%; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; z-index: 150; pointer-events: none;">
-            <div class="cta-reveal" style="opacity: 0; pointer-events: auto;">
-                <a href="#about-us" class="btn-gold">Explore the Future</a>
-            </div>
-        </div>
-
-        <div class="cards-float-container">
-            <div class="floating-ui-card glass-card" style="top: 15%; left: 10%;" id="card-1">
-                <div style="color: var(--gold); margin-bottom: 0.5rem;">● AI CHAT INTERFACE</div>
-                <p style="font-size: 0.8rem;">Ready for synthesis...</p>
-            </div>
-            <div class="floating-ui-card glass-card" style="top: 20%; right: 10%;" id="card-2">
-                <div style="color: var(--gold); margin-bottom: 0.5rem;">◆ ANALYTICS CORE</div>
-                <p style="font-size: 0.8rem;">Data points synchronized.</p>
-            </div>
-            <div class="floating-ui-card glass-card" style="bottom: 15%; left: 12%;" id="card-3">
-                <div style="color: var(--gold); margin-bottom: 0.5rem;">▣ AUTOMATION GRID</div>
-                <p style="font-size: 0.8rem;">Flow optimized.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- WHY US -->
+const newSections = `<!-- WHY US -->
     <section id="why-us" style="padding: 10rem 0 0; background: #0a0a0a; position: relative; overflow: hidden;">
         <div style="position: absolute; top: -200px; left: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%); pointer-events: none;"></div>
         <div style="position: absolute; bottom: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%); pointer-events: none;"></div>
@@ -410,110 +224,82 @@
         </div>
     </section>
 
-<section id="qualification" style="background: #fafafa; padding: 8rem 10% 6rem;">
-        <div style="text-align: center; margin-bottom: 6rem;">
-            <span class="section-tag">IS THIS RIGHT FOR YOU?</span>
-            <h2 class="premium-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-top: 1.5rem;">Who We <span style="color: var(--gold);">Partner</span> With</h2>
-        </div>
+`;
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 4rem;">
-            <div class="glass-card" style="background: #fff; padding: 4rem; border-left: 6px solid #4CAF50;">
-                <h4 style="font-size: 1.8rem; margin-bottom: 2rem; font-family: var(--font-heading);">This is for enterprises that:</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.5rem;">+</span>
-                        Want measurable ROI from AI
-                    </li>
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.5rem;">+</span>
-                        Have complex, multi-department operations
-                    </li>
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.5rem;">+</span>
-                        Are ready to invest strategically
-                    </li>
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.5rem;">+</span>
-                        Want custom solutions, not tools
-                    </li>
-                </ul>
+html = html.substring(0, oldSectionsStart) + newSections + html.substring(frameworkStart);
+
+// 3. Replace old footer with premium dark footer
+const oldFooterStart = html.indexOf('<footer class="site-footer">');
+const oldFooterEnd = html.indexOf('</footer>');
+
+if (oldFooterStart !== -1 && oldFooterEnd !== -1) {
+    const newFooter = `<footer style="background: #0a0a0a; color: #fff; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -200px; left: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%); pointer-events: none;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%); pointer-events: none;"></div>
+
+        <div style="border-bottom: 1px solid rgba(255,255,255,0.06); padding: 5rem 10%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <p style="font-size: 0.8rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;">Ready to build the future?</p>
+                <h2 style="font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3.5rem); color: #fff; margin: 0; line-height: 1.2;">Let&rsquo;s talk. <span style="color: var(--gold);">Answer is Yes.</span></h2>
             </div>
-            <div class="glass-card" style="background: #fff; padding: 4rem; border-left: 6px solid #f44336;">
-                <h4 style="font-size: 1.8rem; margin-bottom: 2rem; font-family: var(--font-heading);">This is NOT for organizations that:</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #f44336; font-weight: bold; font-size: 1.5rem;">−</span>
-                        Want quick chatbot deployments
-                    </li>
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #f44336; font-weight: bold; font-size: 1.5rem;">−</span>
-                        Are looking for cheap automation
-                    </li>
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #f44336; font-weight: bold; font-size: 1.5rem;">−</span>
-                        Don’t want internal change
-                    </li>
-                    <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; color: #444;">
-                        <span style="color: #f44336; font-weight: bold; font-size: 1.5rem;">−</span>
-                        Expect instant results without alignment
-                    </li>
-                </ul>
-            </div>
+            <a href="contact.html" class="btn-gold" style="font-size: 1.1rem; padding: 1.2rem 3rem; white-space: nowrap;">Start a Conversation</a>
         </div>
 
-        <div style="text-align: center; margin-top: 4rem;">
-            <a href="contact.html" class="btn-gold" style="font-size: 1.2rem; padding: 1.5rem 4rem;">Get Started with Assessment</a>
-        </div>
-    </section>
-
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">
-                    <img src="assets/logo.png" alt="A AI Logo">
-                    <span>A AI</span>
+        <div style="padding: 6rem 10%; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 5rem; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <div>
+                <a href="index.html" style="display: flex; align-items: center; gap: 1rem; text-decoration: none; margin-bottom: 2rem;">
+                    <img src="assets/logo.png" alt="A AI Logo" style="height: 40px;">
+                    <span style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: #fff;">A AI</span>
                 </a>
-                <p class="footer-description">Creating the next generation of artificial intelligence. We build systems that don't just process data—they understand it.</p>
-                <div class="footer-socials">
-                    <a href="#" class="social-icon">Li</a>
-                    <a href="#" class="social-icon">X</a>
-                    <a href="#" class="social-icon">Gh</a>
-                </div>
+                <p style="color: #666; line-height: 1.8; font-size: 0.95rem; max-width: 280px;">Innovation, Research and Development. Building the foundational technologies of the next human civilization.</p>
             </div>
-            <div class="footer-links">
-                <h4>Ecosystem</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="solutions.html">Solutions</a></li>
-                    <li><a href="tech.html">The Tech</a></li>
+            <div>
+                <h4 style="font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 2rem;">Company</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
+                    <li><a href="index.html#why-us" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Why Us</a></li>
+                    <li><a href="index.html#about-us" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">About Us</a></li>
+                    <li><a href="index.html#leadership" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Leadership</a></li>
+                    <li><a href="blogs.html" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Blogs</a></li>
+                    <li><a href="careers.html" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Careers</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="blogs.html">Journal</a></li>
-                    <li><a href="careers.html">Careers</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+            <div>
+                <h4 style="font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 2rem;">Services</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
+                    <li><a href="solutions.html" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Solutions</a></li>
+                    <li><a href="tech.html" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">The Tech</a></li>
+                    <li><a href="tech.html#innovation" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Innovation</a></li>
+                    <li><a href="tech.html#rd" style="color: #666; text-decoration: none; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">R&amp;D</a></li>
                 </ul>
             </div>
-            <div class="footer-contact-info">
-                <h4>Headquarters</h4>
-                <div class="contact-item">
-                    <span>Location:</span>
-                    <p>Fashion Factory, SS Dhage Rd, near Shivaji Chowk, Pune 411037</p>
-                </div>
-                <div class="contact-item">
-                    <span>Phone:</span>
-                    <p><a href="tel:+917097095152" style="color: inherit; text-decoration: none;">+91 70970 95152</a></p>
+            <div>
+                <h4 style="font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 2rem;">Contact</h4>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <span style="color: var(--gold); margin-top: 2px;">&#9679;</span>
+                        <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin: 0;">Fashion Factory, SS Dhage Rd, Gultekdi, Pune</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="color: var(--gold);">&#9679;</span>
+                        <a href="tel:+917097095152" style="color: #666; font-size: 0.9rem; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">+91 70970 95152</a>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="color: var(--gold);">&#9679;</span>
+                        <a href="contact.html" style="color: #666; font-size: 0.9rem; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">Send us a message</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 A AI. All rights reserved.</p>
-            <p>Answer is Yes!</p>
-        </div>
-    </footer>
 
-    <script type="module" src="app.js"></script>
-</body>
-</html>
+        <div style="padding: 2rem 10%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <p style="color: #444; font-size: 0.85rem; margin: 0;">&copy; 2026 A AI Innovation, Research and Development. All rights reserved.</p>
+            <p style="color: #333; font-size: 0.8rem; margin: 0; letter-spacing: 2px; text-transform: uppercase;">Answer is Yes.</p>
+        </div>
+    </footer>`;
+
+    html = html.substring(0, oldFooterStart) + newFooter + html.substring(oldFooterEnd + 9);
+    console.log('Footer replaced.');
+}
+
+fs.writeFileSync('index.html', html);
+console.log('SUCCESS: index.html fully rebuilt with Why Us, About Us, 2047 Vision, Leadership sections + premium footer.');
