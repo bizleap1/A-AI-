@@ -575,3 +575,85 @@ section {
         text-align: center;
     }
 }
+
+/* -----------------------------------
+   Mobile Responsiveness Utilities
+-------------------------------------- */
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.flex-responsive {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+@media (max-width: 1100px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-4, .grid-3, .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .flex-responsive {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        padding: 4rem 0 !important;
+        height: 100vh;
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+    
+    section {
+        padding: 5rem 5% !important;
+    }
+    
+    .premium-title {
+        font-size: 2.5rem !important;
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 480px) {
+    .premium-title {
+        font-size: 2rem !important;
+    }
+}
+
+/* Modal Responsiveness */
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: 4rem 5%;
+    }
+    
+    .modal-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.8rem !important;
+    }
+}

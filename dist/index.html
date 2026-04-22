@@ -6,7 +6,7 @@
     <title>A AI | Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <style>
         .hero {
             height: 100vh;
@@ -15,22 +15,20 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            background: #fff;
+            background: #fff; /* Reverted to white */
         }
 
-        /* Robot Wrapper for Splitting */
         .robot-activation-area {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            height: 80vh;
+            max-width: 1000px;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: -100px;
+            z-index: 5;
         }
 
-        /* The Internal Core Layer */
         #core-canvas {
             position: absolute;
             width: 100%;
@@ -42,112 +40,95 @@
             filter: blur(10px);
         }
 
-        /* The Robot Panels (Left and Right) */
         .robot-panel {
             position: absolute;
-            top: 10%; /* Center vertically slightly */
+            top: 5%;
             width: 50%;
-            height: 80%;
+            height: 90%;
             background-image: url('/assets/robot-DGhIjoN3.png');
             background-size: 200% 100%;
             background-repeat: no-repeat;
-            z-index: 10;
+            z-index: 2; /* Behind the core and UI */
             transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
             mask-image: radial-gradient(ellipse at center, black 70%, transparent 95%);
             -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 95%);
+            opacity: 1;
         }
 
-        .panel-left {
-            left: 0;
-            background-position: left center;
-        }
+        .panel-left { left: 0; background-position: left center; }
+        .panel-right { right: 0; background-position: right center; }
 
-        .panel-right {
-            right: 0;
-            background-position: right center;
-        }
-
-        /* Activation Ripple */
         .energy-ripple {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             border-radius: 50%;
             border: 2px solid var(--gold);
-            z-index: 4;
+            z-index: 1;
             opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Holographic Reveal UI */
-        .hologram-ui {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 15;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
             pointer-events: none;
         }
 
         .vignette-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 50%, rgba(255,255,255,0.9) 100%);
-            z-index: 20;
-            pointer-events: none;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(255,255,255,0.7) 100%); /* White vignette */
+            z-index: 10; pointer-events: none;
         }
 
-        .reveal-text {
-            font-family: var(--font-heading);
-            font-size: 6rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        .reveal-text span { color: var(--gold); }
-
-        /* Floating UI Cards */
         .cards-float-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 25;
-            pointer-events: none;
+            position: absolute; width: 100%; height: 100%;
+            z-index: 30; pointer-events: none;
         }
 
         .floating-ui-card {
-            position: absolute;
-            width: 240px;
-            opacity: 0;
-            transform: translateY(50px);
+            position: absolute; width: 240px;
+            opacity: 0; transform: translateY(50px);
+            background: rgba(255,255,255,0.8) !important;
+            border: 1px solid rgba(0,0,0,0.05) !important;
+            color: #111 !important;
+            backdrop-filter: blur(10px);
+            z-index: 40;
         }
 
         #neural-canvas-global {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            z-index: 1;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.08; z-index: 0;
         }
 
-        /* Mobile specific overrides for Hero */
+        .orbit-node {
+            position: absolute; display: flex; flex-direction: column;
+            align-items: center; gap: 0.6rem; text-decoration: none;
+            z-index: 40; pointer-events: auto; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0;
+        }
+        .orbit-node:hover { transform: scale(1.2) !important; }
+        .orbit-icon {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: #fff; border: 1px solid rgba(212,175,55,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .orbit-node:hover .orbit-icon { 
+            background: var(--gold); 
+            border-color: #fff;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+            transform: rotate(10deg);
+        }
+        .orbit-label {
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: #111; white-space: nowrap;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.5);
+        }
+
+        @keyframes spinText { to { transform: rotate(360deg); } }
+
         @media (max-width: 768px) {
             .cards-float-container { display: none; }
-            .reveal-text { font-size: 3.5rem; }
+            .orbit-node { display: none; }
+            .robot-activation-area { max-width: 100%; height: 50vh; }
         }
     </style>
-  <script type="module" crossorigin src="/assets/app-C5Xr_uYW.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-DXkx0-vB.css">
+  <script type="module" crossorigin src="/assets/app-DabS1KfT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-D2ZwWKkB.css">
 </head>
 <body>
     <nav>
@@ -160,7 +141,8 @@
             <a href="index.html">Home</a>
             <a href="solutions.html">Solutions</a>
             <a href="tech.html">The Tech</a>
-            <a href="company.html">Company</a>
+            <a href="blogs.html">Journal</a>
+            <a href="careers.html">Careers</a>
             <a href="contact.html">Contact</a>
         </div>
     </nav>
@@ -170,239 +152,266 @@
         <div class="vignette-overlay"></div>
 
         <div class="robot-activation-area">
-            <!-- Internal Glow Core -->
             <canvas id="core-canvas"></canvas>
-            
-            <!-- External Body Panels -->
             <div class="robot-panel panel-left" id="p-left"></div>
             <div class="robot-panel panel-right" id="p-right"></div>
-
             <div class="energy-ripple" id="ripple"></div>
+
+            <!-- अ + Spinning ring overlay -->
+            <div id="circle-badge" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none;">
+                <svg viewBox="0 0 200 200" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: spinText 20s linear infinite;">
+                    <defs><path id="circleOrbit" d="M 100,100 m -85,0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0" /></defs>
+                    <text font-size="9" font-family="'Inter', sans-serif" font-weight="700" letter-spacing="4" fill="#111">
+                        <textPath href="#circleOrbit">INNOVATION • RESEARCH • DEVELOPMENT • </textPath>
+                    </text>
+                </svg>
+                <span style="font-family: 'Outfit', sans-serif; font-size: 7rem; font-weight: 700; color: #111; text-shadow: 0 0 30px rgba(212,175,55,0.3); position: relative; z-index: 2; line-height: 1;">अ</span>
+            </div>
+
+            <!-- Orbital nav nodes -->
+            <a href="solutions.html" class="orbit-node" style="top: calc(50% - 250px); left: 50%; transform: translateX(-50%);">
+                <div class="orbit-icon">⚡</div><span class="orbit-label">Solutions</span>
+            </a>
+            <a href="tech.html" class="orbit-node" style="top: 50%; left: calc(50% + 250px); transform: translateY(-50%);">
+                <div class="orbit-icon">🔬</div><span class="orbit-label">The Tech</span>
+            </a>
+            <a href="blogs.html" class="orbit-node" style="bottom: calc(50% - 250px); right: calc(50% - 200px);">
+                <div class="orbit-icon">📝</div><span class="orbit-label">Blogs</span>
+            </a>
+            <a href="careers.html" class="orbit-node" style="bottom: calc(50% - 250px); left: calc(50% - 200px);">
+                <div class="orbit-icon">🚀</div><span class="orbit-label">Careers</span>
+            </a>
+            <a href="contact.html" class="orbit-node" style="top: 50%; left: calc(50% - 300px); transform: translateY(-50%);">
+                <div class="orbit-icon">✉️</div><span class="orbit-label">Contact</span>
+            </a>
         </div>
 
-        <div class="hologram-ui">
-            <h1 class="reveal-text">A <span>AI</span></h1>
-            <p class="tagline" style="opacity: 0; letter-spacing: 8px; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Innovation, Research and Development</p>
-            <span class="answer-yes" style="opacity: 0; font-size: 1.5rem; margin-top: 2rem;">Answer is Yes!</span>
-            <br>
+        <div style="position: absolute; bottom: 8%; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; z-index: 150; pointer-events: none;">
             <div class="cta-reveal" style="opacity: 0; pointer-events: auto;">
-                <a href="#who-we-are" class="btn-gold">Explore the Future</a>
+                <a href="#about-us" class="btn-gold">Explore the Future</a>
             </div>
         </div>
 
         <div class="cards-float-container">
-            <div class="floating-ui-card glass-card" style="top: 20%; left: 10%;" id="card-1">
+            <div class="floating-ui-card glass-card" style="top: 15%; left: 10%;" id="card-1">
                 <div style="color: var(--gold); margin-bottom: 0.5rem;">● AI CHAT INTERFACE</div>
                 <p style="font-size: 0.8rem;">Ready for synthesis...</p>
             </div>
-            <div class="floating-ui-card glass-card" style="top: 25%; right: 10%;" id="card-2">
+            <div class="floating-ui-card glass-card" style="top: 20%; right: 10%;" id="card-2">
                 <div style="color: var(--gold); margin-bottom: 0.5rem;">◆ ANALYTICS CORE</div>
                 <p style="font-size: 0.8rem;">Data points synchronized.</p>
             </div>
-            <div class="floating-ui-card glass-card" style="bottom: 20%; left: 12%;" id="card-3">
+            <div class="floating-ui-card glass-card" style="bottom: 15%; left: 12%;" id="card-3">
                 <div style="color: var(--gold); margin-bottom: 0.5rem;">▣ AUTOMATION GRID</div>
                 <p style="font-size: 0.8rem;">Flow optimized.</p>
-            </div>
-            <div class="floating-ui-card glass-card" style="bottom: 25%; right: 12%;" id="card-4">
-                <div style="color: var(--gold); margin-bottom: 0.5rem;">☼ DATA VISUALIZATION</div>
-                <p style="font-size: 0.8rem;">Mapping complexity...</p>
             </div>
         </div>
     </div>
 
-    <section id="barriers" style="background: #fff; padding: 10rem 10% 6rem; position: relative; overflow: hidden;">
-        <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
-            <span class="section-tag" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 50px; margin-bottom: 2rem;">THE CHALLENGE</span>
-            <h2 class="premium-title" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 4rem;">Key Barriers to <br><span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Enterprise AI Adoption</span></h2>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; text-align: left;">
-                <div class="glass-card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eee; padding: 3rem; transition: all 0.4s; border-top: 4px solid var(--gold);">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1rem;">Limited Understanding of AI’s Full Potential</h3>
-                    <p style="font-size: 1rem; color: #666; line-height: 1.7;">Enterprises underestimate how deeply AI can transform operations, workflows, and decision-making across the business.</p>
+    <!-- WHY US -->
+    <section id="why-us" style="padding: 10rem 0 0; background: #0a0a0a; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -200px; left: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%); pointer-events: none;"></div>
+        <div style="position: absolute; bottom: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%); pointer-events: none;"></div>
+
+        <div style="padding: 0 10%; margin-bottom: 6rem;">
+            <span style="display: inline-block; padding: 0.4rem 1.2rem; background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.3); border-radius: 50px; font-size: 0.75rem; letter-spacing: 3px; font-weight: 700; color: var(--gold); margin-bottom: 2.5rem; text-transform: uppercase;">WHY US</span>
+            <div style="display: flex; gap: 6rem; align-items: flex-end; flex-wrap: wrap;">
+                <div style="flex: 1.5; min-width: 300px;">
+                    <h1 style="font-family: var(--font-heading); font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.05; color: #fff; margin: 0;">The Only Answer <br>We Know is <br><span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">"Yes."</span></h1>
                 </div>
-                <div class="glass-card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eee; padding: 3rem; transition: all 0.4s; border-top: 4px solid #111;">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1rem;">No Clear View of What Can Be Automated</h3>
-                    <p style="font-size: 1rem; color: #666; line-height: 1.7;">Teams lack clarity on which business processes are suitable for automation and which require custom system design.</p>
-                </div>
-                <div class="glass-card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eee; padding: 3rem; transition: all 0.4s; border-top: 4px solid var(--gold);">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1rem;">Uncertainty Around High-Impact Priorities</h3>
-                    <p style="font-size: 1rem; color: #666; line-height: 1.7;">Without a structured assessment, organizations struggle to identify which processes should be automated first to deliver maximum impact.</p>
-                </div>
-                <div class="glass-card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eee; padding: 3rem; transition: all 0.4s; border-top: 4px solid #111;">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1rem;">Tool-First Solutions Don’t Fit Complex Systems</h3>
-                    <p style="font-size: 1rem; color: #666; line-height: 1.7;">Most providers push isolated tools instead of building deeply integrated systems suited for complex enterprise environments.</p>
-                </div>
-                <div class="glass-card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eee; padding: 3rem; transition: all 0.4s; border-top: 4px solid var(--gold);">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1rem;">Fragmented & Isolated AI Initiatives</h3>
-                    <p style="font-size: 1rem; color: #666; line-height: 1.7;">AI experiments often remain siloed, preventing enterprise-wide scale and compounding ROI.</p>
-                </div>
-                <div class="glass-card" style="background: rgba(255, 255, 255, 0.8); border: 1px solid #eee; padding: 3rem; transition: all 0.4s; border-top: 4px solid #111;">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1rem;">Lack of Data-Backed ROI Visibility</h3>
-                    <p style="font-size: 1rem; color: #666; line-height: 1.7;">Without quantified ROI in real financial terms, leadership can’t justify or approve large-scale AI investment.</p>
+                <div style="flex: 1; min-width: 280px;">
+                    <p style="color: #aaa; font-size: 1.15rem; line-height: 1.8; margin: 0 0 2rem;">When others see obstacles, we see opportunities. When others say "too hard," we say "watch this." This is not optimism. <strong style="color: #fff;">This is conviction.</strong></p>
+                    <p style="color: #888; font-size: 1rem; line-height: 1.8; margin: 0;">We don&rsquo;t rely on off-the-shelf tools or generic automation. A AI engineers bespoke, deeply integrated AI solutions built specifically around your operational architecture.</p>
                 </div>
             </div>
-            
-            <div style="margin-top: 4rem; padding: 3rem; background: #fafafa; border-radius: 20px; border: 1px solid #eee;">
-                <p style="font-size: 1.4rem; font-weight: 500; color: #222;">Without clarity, prioritization, integration, and measurable ROI, AI remains an idea — <span style="color: var(--gold);">not a competitive advantage.</span></p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 10%;">
+            <div style="padding: 3rem 2rem; border-right: 1px solid rgba(255,255,255,0.08); text-align: center;">
+                <div style="font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; color: var(--gold); line-height: 1;">100%</div>
+                <div style="font-size: 0.8rem; letter-spacing: 2px; color: #666; margin-top: 0.5rem; text-transform: uppercase;">Bespoke Solutions</div>
             </div>
+            <div style="padding: 3rem 2rem; border-right: 1px solid rgba(255,255,255,0.08); text-align: center;">
+                <div style="font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; color: var(--gold); line-height: 1;">2047</div>
+                <div style="font-size: 0.8rem; letter-spacing: 2px; color: #666; margin-top: 0.5rem; text-transform: uppercase;">Vision Target</div>
+            </div>
+            <div style="padding: 3rem 2rem; border-right: 1px solid rgba(255,255,255,0.08); text-align: center;">
+                <div style="font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; color: var(--gold); line-height: 1;">3&times;</div>
+                <div style="font-size: 0.8rem; letter-spacing: 2px; color: #666; margin-top: 0.5rem; text-transform: uppercase;">Faster Deployment</div>
+            </div>
+            <div style="padding: 3rem 2rem; text-align: center;">
+                <div style="font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; color: var(--gold); line-height: 1;">&infin;</div>
+                <div style="font-size: 0.8rem; letter-spacing: 2px; color: #666; margin-top: 0.5rem; text-transform: uppercase;">Scalability</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 10%; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <div class="why-card" style="padding: 4rem 3rem; border-right: 1px solid rgba(255,255,255,0.08); transition: background 0.4s; cursor: default;">
+                <div style="font-size: 2rem; margin-bottom: 1.5rem;">&#129504;</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Deep Custom Engineering</h3>
+                <p style="color: #777; line-height: 1.7; font-size: 0.95rem;">Every system is architectured from zero around your domain&rsquo;s specific data flows, operational logic, and security requirements.</p>
+            </div>
+            <div class="why-card" style="padding: 4rem 3rem; border-right: 1px solid rgba(255,255,255,0.08); transition: background 0.4s; cursor: default;">
+                <div style="font-size: 2rem; margin-bottom: 1.5rem;">&DoubleLeftRightArrow;</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Speed to Impact</h3>
+                <p style="color: #777; line-height: 1.7; font-size: 0.95rem;">Rapid prototyping and assessment-first deployment means you see real ROI in weeks, not quarters.</p>
+            </div>
+            <div class="why-card" style="padding: 4rem 3rem; transition: background 0.4s; cursor: default;">
+                <div style="font-size: 2rem; margin-bottom: 1.5rem;">&#128274;</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Security First</h3>
+                <p style="color: #777; line-height: 1.7; font-size: 0.95rem;">Zero-trust architectures and enterprise-grade encryption ensure your AI systems are production-safe from day one.</p>
+            </div>
+            <div class="why-card" style="padding: 4rem 3rem; border-right: 1px solid rgba(255,255,255,0.08); border-top: 1px solid rgba(255,255,255,0.08); transition: background 0.4s; cursor: default;">
+                <div style="font-size: 2rem; margin-bottom: 1.5rem;">&#127760;</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Enterprise Scale</h3>
+                <p style="color: #777; line-height: 1.7; font-size: 0.95rem;">Built for enterprises operating at scale. Our systems handle millions of data points and complex multi-department pipelines.</p>
+            </div>
+            <div class="why-card" style="padding: 4rem 3rem; border-right: 1px solid rgba(255,255,255,0.08); border-top: 1px solid rgba(255,255,255,0.08); transition: background 0.4s; cursor: default;">
+                <div style="font-size: 2rem; margin-bottom: 1.5rem;">&#129309;</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Long-Term Partnership</h3>
+                <p style="color: #777; line-height: 1.7; font-size: 0.95rem;">We evolve with you. Continuous monitoring, iterative improvement, and proactive upgrades ensure your AI stays ahead.</p>
+            </div>
+            <div class="why-card" style="padding: 4rem 3rem; border-top: 1px solid rgba(255,255,255,0.08); transition: background 0.4s; cursor: default;">
+                <div style="font-size: 2rem; margin-bottom: 1.5rem;">&#128202;</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Quantified ROI</h3>
+                <p style="color: #777; line-height: 1.7; font-size: 0.95rem;">Every engagement starts with an assessment. Every deliverable comes with clear KPIs and measurable impact reports.</p>
+            </div>
+        </div>
+        <style>
+            .why-card:hover { background: rgba(212,175,55,0.04); }
+            .why-card:hover h3 { color: var(--gold) !important; }
+        </style>
+    </section>
+
+    <!-- ABOUT US: MISSION & VISION -->
+    <section id="about-us" style="background: #fff; padding: 10rem 10%; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%); pointer-events: none;"></div>
+
+        <div style="text-align: center; margin-bottom: 6rem;">
+            <span style="display: inline-block; padding: 0.4rem 1.2rem; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.25); border-radius: 50px; font-size: 0.75rem; letter-spacing: 3px; font-weight: 700; color: #b8972e; margin-bottom: 2rem; text-transform: uppercase;">ABOUT US</span>
+            <h2 style="font-family: var(--font-heading); font-size: clamp(3rem, 5vw, 5rem); line-height: 1.05; color: #111; margin: 0;">The Institution Built<br>to Say <span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">&ldquo;Yes.&rdquo;</span></h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 5rem;">
+            <!-- Mission -->
+            <div style="background: #0a0a0a; border-radius: 28px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.12);">
+                <div style="position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);"></div>
+                <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">&#127919;</div>
+                <span style="font-size: 0.7rem; letter-spacing: 3px; font-weight: 700; color: var(--gold); text-transform: uppercase;">Mission</span>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #fff; margin: 1rem 0 1.5rem; line-height: 1.2;">Yes to the Future.</h3>
+                <p style="color: #aaa; line-height: 1.9; font-size: 1rem;">We build foundational technologies upon which the next human civilization will stand &mdash; AI, Quantum, Robotics, Materials, Space, Climate, Biology, Security.</p>
+                <p style="color: #777; line-height: 1.9; font-size: 0.95rem; margin-top: 1.5rem;">Our daily mission: deliver absolute functional excellence by turning complex theoretical technologies into scalable enterprise-grade applications.</p>
+                <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 2.5rem;">
+                    <div><div style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--gold);">&infin;</div><div style="font-size: 0.7rem; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem;">Ambition</div></div>
+                    <div><div style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--gold);">0</div><div style="font-size: 0.7rem; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem;">Compromises</div></div>
+                    <div><div style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--gold);">1</div><div style="font-size: 0.7rem; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem;">Answer</div></div>
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div style="background: #fafafa; border: 1px solid #eee; border-radius: 28px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.05);">
+                <div style="position: absolute; bottom: -60px; left: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);"></div>
+                <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">&#127759;</div>
+                <span style="font-size: 0.7rem; letter-spacing: 3px; font-weight: 700; color: #b8972e; text-transform: uppercase;">Vision &mdash; 2047</span>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #111; margin: 1rem 0 1.5rem; line-height: 1.2;">India&rsquo;s Centenary &amp; Beyond.</h3>
+                <p style="color: #555; line-height: 1.9; font-size: 1rem;">By 2047, we envision a world unbound by repetitive manual limitations. A AI aims to be the central nervous system of global enterprise.</p>
+                <p style="color: #888; line-height: 1.9; font-size: 0.95rem; margin-top: 1.5rem;">Setting the gold standard for Autonomous Systems and AGI &mdash; ensuring every technological leap creates compounding value for humanity.</p>
+                <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #eee; display: flex; gap: 2.5rem;">
+                    <div><div style="font-family: var(--font-heading); font-size: 1.8rem; color: #111;">2047</div><div style="font-size: 0.7rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem;">Target</div></div>
+                    <div><div style="font-family: var(--font-heading); font-size: 1.8rem; color: #111;">AGI</div><div style="font-size: 0.7rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem;">End Goal</div></div>
+                    <div><div style="font-family: var(--font-heading); font-size: 1.8rem; color: #111;">&#127470;&#127475;</div><div style="font-size: 0.7rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem;">From India</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bold quote banner -->
+        <div style="background: linear-gradient(135deg, #0a0a0a, #1a1a1a); border-radius: 24px; padding: 4rem 5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+            <p style="font-family: var(--font-heading); font-size: clamp(1.4rem, 2.5vw, 2rem); color: #fff; margin: 0; line-height: 1.4; flex: 1; min-width: 280px;">&ldquo;We are scientists, engineers &amp; builders who came here because the default answer is always <span style="color: var(--gold);">Yes.</span>&rdquo;</p>
+            <a href="contact.html" class="btn-gold" style="white-space: nowrap; flex-shrink: 0; font-size: 1rem;">Work With Us</a>
         </div>
     </section>
 
-    <section id="transformation" style="background: #0a0a0a; color: #fff; padding: 10rem 10%; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);"></div>
+    <!-- 2047 VISION -->
+    <section style="background: #fff; padding: 6rem 10% 10rem; position: relative;">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <span class="section-tag">THE FUTURE</span>
+            <h2 class="premium-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem);">2047 <span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Vision</span></h2>
+            <p style="font-size: 1.2rem; color: #666; margin-top: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto;">Our roadmap to building the foundational technologies of India&rsquo;s centenary.</p>
+        </div>
         
-        <div style="display: flex; flex-wrap: wrap; gap: 6rem; align-items: center; position: relative; z-index: 2;">
-            <div style="flex: 1.2; min-width: 300px;">
-                <span class="section-tag" style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;">THE STRATEGY</span>
-                <h2 class="premium-title" style="color: #fff; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1;">The Right Way to Begin <br><span style="color: var(--gold);">AI Transformation</span></h2>
-                <div style="margin-top: 2.5rem; font-size: 1.25rem; line-height: 1.8; color: #ccc;">
-                    <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.8rem;">An Assessment-First Approach, Not a Tool-First Guess</h3>
-                    <p>Enterprise AI transformation doesn’t start with software, agents, or automation tools. It starts with understanding how your business actually operates — and where AI can create the greatest impact.</p>
-                    <br>
-                    <p>That’s why every engagement begins with a structured <strong>AI Transformation Assessment</strong>.</p>
-                </div>
-                <div style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem;">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <span style="color: var(--gold); font-size: 1.5rem;">✓</span>
-                        <span>What should be automated</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <span style="color: var(--gold); font-size: 1.5rem;">✓</span>
-                        <span>What should not</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <span style="color: var(--gold); font-size: 1.5rem;">✓</span>
-                        <span>Where AI delivers the highest return first</span>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto;">
+            <div class="glass-card" style="position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.05); background: #fff; padding: 0; border: 1px solid #eee; transition: transform 0.4s;">
+                <div style="height: 200px; overflow: hidden; position: relative;">
+                    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(45deg, #111, #333); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img src="/assets/robot-DGhIjoN3.png" alt="AGI" style="height: 130%; opacity: 0.4; object-fit: cover; filter: drop-shadow(0 0 20px rgba(212,175,55,0.5));">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));"></div>
                     </div>
                 </div>
-                <a href="contact.html" class="btn-gold" style="margin-top: 4rem; display: inline-block;">Start Assessment Now</a>
+                <div style="padding: 2.5rem;">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-family: var(--font-heading);">AGI Integration</h3>
+                    <p style="color: #666; line-height: 1.6;">Seamless integration of Artificial General Intelligence into critical infrastructure and enterprise core operations.</p>
+                </div>
             </div>
-            <div style="flex: 1; min-width: 300px;">
-                <div class="glass-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 4rem; position: relative; box-shadow: 0 40px 100px rgba(0,0,0,0.5);">
-                    <div style="font-size: 3rem; color: var(--gold); margin-bottom: 2rem;">📊</div>
-                    <h4 style="font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin-bottom: 1.5rem;">Data-Driven Starting Point</h4>
-                    <p style="color: #aaa; line-height: 1.7;">Instead of assumptions, we analyze how work actually flows across your organization — and where automation can reduce cost, increase efficiency, and scale operations responsibly.</p>
+            
+            <div class="glass-card" style="position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.05); background: #fff; padding: 0; border: 1px solid #eee; transition: transform 0.4s;">
+                <div style="height: 200px; overflow: hidden; position: relative;">
+                    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, #d4af37, #f9d423); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <span style="font-size: 6rem; animation: floatIcon 3s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));">&#127759;</span>
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.25));"></div>
+                    </div>
+                </div>
+                <div style="padding: 2.5rem;">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-family: var(--font-heading);">Global Expansion</h3>
+                    <p style="color: #666; line-height: 1.6;">Establishing A AI as the global standard for responsible and autonomous system architectures.</p>
                 </div>
             </div>
         </div>
+        <style>
+            @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        </style>
     </section>
 
-    <section id="outcomes" style="background: #fafafa; padding: 10rem 10%; text-align: center;">
-        <span class="section-tag" style="margin-bottom: 2rem;">WHAT YOU GET</span>
-        <h2 class="premium-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 5rem;">A Structured, <br><span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Data-Driven Roadmap</span></h2>
+    <!-- LEADERSHIP -->
+    <section id="leadership" style="background: #fafafa; padding: 10rem 10%; position: relative;">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <span class="section-tag">THE LEADERSHIP</span>
+            <h2 class="premium-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem);">Our <span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Founders</span></h2>
+        </div>
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; text-align: left;">
-            <div class="glass-card" style="background: #fff; padding: 3rem; border: 1px solid #eee; border-radius: 24px;">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold);">A tailored AI Transformation Report</h4>
-                <p style="color: #666;">A clear summary of opportunities specific to your organization — not a template.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+            <!-- Kaushal -->
+            <div class="glass-card" style="box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; background: #fff; display: flex; flex-direction: column; align-items: center;">
+                <div style="width: 200px; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <img src="/assets/IMG_5607.JPG-t16MH9Z5.jpeg" alt="Kaushal Banginwar" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(10%); transition: all 0.5s;" onmouseover="this.style.filter='grayscale(0) scale(1.05)';" onmouseout="this.style.filter='grayscale(10%) scale(1)';">
+                </div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; font-family: var(--font-heading);">Kaushal Banginwar</h3>
+                <p style="color: var(--gold); font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; margin-bottom: 1.5rem;">FOUNDER &amp; CTO</p>
+                <p style="color: #666; font-size: 1rem; line-height: 1.6; flex: 1;">Kaushal Banginwar is the visionary architect behind A AI&rsquo;s core technological framework, bringing a profound expertise in advanced artificial intelligence systems and complex engineering infrastructures. With a focus on research-driven development, he specializes in building scalable, secure, and future-ready solutions that transform theoretical possibilities into high-performance industrial applications.</p>
             </div>
-            <div class="glass-card" style="background: #fff; padding: 3rem; border: 1px solid #eee; border-radius: 24px;">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold);">Quantified ROI projections</h4>
-                <p style="color: #666;">Time savings, cost reductions, and efficiency gains expressed in real numbers.</p>
+
+            <!-- Akshay -->
+            <div class="glass-card" style="box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; background: #fff; display: flex; flex-direction: column; align-items: center;">
+                <div style="width: 200px; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <img src="/assets/IMG_2049.JPG-DBv3A5Tt.jpeg" alt="Akshay Warghade" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(10%); transition: all 0.5s;" onmouseover="this.style.filter='grayscale(0) scale(1.05)';" onmouseout="this.style.filter='grayscale(10%) scale(1)';">
+                </div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; font-family: var(--font-heading);">Akshay Warghade</h3>
+                <p style="color: var(--gold); font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; margin-bottom: 1.5rem;">FOUNDER &amp; CEO</p>
+                <p style="color: #666; font-size: 1rem; line-height: 1.6; flex: 1;">Akshay Warghade is a dynamic and influential force in Pune&rsquo;s real estate and infrastructure landscape, known for his strategic vision and strong execution capabilities. With deep-rooted connections across social and political networks in Maharashtra, he plays a pivotal role in driving complex projects through effective legal liaisoning and stakeholder alignment.</p>
             </div>
-            <div class="glass-card" style="background: #fff; padding: 3rem; border: 1px solid #eee; border-radius: 24px;">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold);">Prioritized automation opportunities</h4>
-                <p style="color: #666;">Ranked by business impact, feasibility, and speed to value.</p>
-            </div>
-            <div class="glass-card" style="background: #fff; padding: 3rem; border: 1px solid #eee; border-radius: 24px;">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold);">An executive-ready AI roadmap</h4>
-                <p style="color: #666;">A phased plan outlining what to automate first, what comes next, and why.</p>
-            </div>
-            <div class="glass-card" style="background: #fff; padding: 3rem; border: 1px solid #eee; border-radius: 24px;">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold);">Actionable insights for leadership</h4>
-                <p style="color: #666;">Clear recommendations your team can act on immediately.</p>
-            </div>
-            <div class="glass-card" style="background: #fff; padding: 3rem; border: 1px solid #eee; border-radius: 24px;">
-                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold);">Implementation Readiness Assessment</h4>
-                <p style="color: #666;">A clear view of technical, data, and operational readiness before any build begins.</p>
+
+            <!-- Ruturaj -->
+            <div class="glass-card" style="box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; background: #fff; display: flex; flex-direction: column; align-items: center;">
+                <div style="width: 200px; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <img src="/assets/IMG_2264.JPG-DXusXo3V.jpeg" alt="Ruturaj Kulkarni" style="width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(10%); transition: all 0.5s;" onmouseover="this.style.filter='grayscale(0) scale(1.05)';" onmouseout="this.style.filter='grayscale(10%) scale(1)';">
+                </div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; font-family: var(--font-heading);">Ruturaj Kulkarni</h3>
+                <p style="color: var(--gold); font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; margin-bottom: 1.5rem;">FOUNDER &amp; CMO</p>
+                <p style="color: #666; font-size: 1rem; line-height: 1.6; flex: 1;">Ruturaj Kulkarni is a results-driven global operations leader and dynamic strategist known for transforming vision into execution and building high-performance systems that deliver measurable growth. With strong international experience in managing complex environments, he combines precision, discipline, and strategic thinking to optimize operations, drive efficiency, and create scalable success.</p>
             </div>
         </div>
     </section>
 
-    <section id="framework" style="background: #fff; padding: 10rem 10%; position: relative;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 6rem;">
-                <span class="section-tag" style="background: rgba(212, 175, 55, 0.1);">OUR METHODOLOGY</span>
-                <h2 class="premium-title" style="font-size: clamp(3rem, 5vw, 4.5rem); margin-top: 1.5rem;">A AI's <span style="color: var(--gold);">CLEAR</span> Framework</h2>
-                <p style="font-size: 1.2rem; color: #555; margin-top: 1.5rem;">AI transformation isn’t a single project — it’s a structured journey.</p>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 4rem;">
-                <!-- C -->
-                <div style="display: flex; gap: 4rem; align-items: flex-start; padding-bottom: 4rem; border-bottom: 1px solid #eee;">
-                    <div style="font-size: 5rem; font-weight: 800; color: var(--gold); line-height: 1; min-width: 80px;">C</div>
-                    <div style="flex: 1;">
-                        <h3 style="font-size: 2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Clarify</h3>
-                        <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">We begin by translating assessment insights into a clear action plan:</p>
-                        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Confirm automation priorities</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Align stakeholders on objectives</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Validate ROI assumptions</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Define success metrics</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- L -->
-                <div style="display: flex; gap: 4rem; align-items: flex-start; padding-bottom: 4rem; border-bottom: 1px solid #eee;">
-                    <div style="font-size: 5rem; font-weight: 800; color: #111; line-height: 1; min-width: 80px;">L</div>
-                    <div style="flex: 1;">
-                        <h3 style="font-size: 2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Lead</h3>
-                        <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">We architect the AI strategy around your business — not tools:</p>
-                        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Define system architecture</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Plan integrations across departments</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Design AI roles and responsibilities</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Establish governance and controls</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- E -->
-                <div style="display: flex; gap: 4rem; align-items: flex-start; padding-bottom: 4rem; border-bottom: 1px solid #eee;">
-                    <div style="font-size: 5rem; font-weight: 800; color: var(--gold); line-height: 1; min-width: 80px;">E</div>
-                    <div style="flex: 1;">
-                        <h3 style="font-size: 2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Engineer</h3>
-                        <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Build custom AI systems. This is where execution begins:</p>
-                        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Develop custom AI workflows and agents</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Integrate with existing systems</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Build data pipelines and automation triggers</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Test and validate performance</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- A -->
-                <div style="display: flex; gap: 4rem; align-items: flex-start; padding-bottom: 4rem; border-bottom: 1px solid #eee;">
-                    <div style="font-size: 5rem; font-weight: 800; color: #111; line-height: 1; min-width: 80px;">A</div>
-                    <div style="flex: 1;">
-                        <h3 style="font-size: 2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Adopt</h3>
-                        <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Enable teams and embed AI into operations</p>
-                        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Train teams on new workflows</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Adjust processes for real-world usage</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Support change management</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: #111;">●</span> Ensure smooth operational handoff</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- R -->
-                <div style="display: flex; gap: 4rem; align-items: flex-start;">
-                    <div style="font-size: 5rem; font-weight: 800; color: var(--gold); line-height: 1; min-width: 80px;">R</div>
-                    <div style="flex: 1;">
-                        <h3 style="font-size: 2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Refine</h3>
-                        <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Continuously improve for compounding ROI</p>
-                        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Monitor performance and KPIs</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Optimize existing automations</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Adapt systems as AI technology advances</li>
-                            <li style="display: flex; align-items: center; gap: 0.8rem;"><span style="color: var(--gold);">●</span> Introduce new AI capabilities</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="qualification" style="background: #fafafa; padding: 10rem 10%;">
+<section id="qualification" style="background: #fafafa; padding: 8rem 10% 6rem;">
         <div style="text-align: center; margin-bottom: 6rem;">
             <span class="section-tag">IS THIS RIGHT FOR YOU?</span>
             <h2 class="premium-title" style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-top: 1.5rem;">Who We <span style="color: var(--gold);">Partner</span> With</h2>
@@ -453,7 +462,7 @@
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 6rem;">
+        <div style="text-align: center; margin-top: 4rem;">
             <a href="contact.html" class="btn-gold" style="font-size: 1.2rem; padding: 1.5rem 4rem;">Get Started with Assessment</a>
         </div>
     </section>
@@ -465,29 +474,46 @@
                     <img src="/assets/logo-CAA6isEo.png" alt="A AI Logo">
                     <span>A AI</span>
                 </a>
-                <p class="footer-description">A AI Innovation, Research and Development. Answer is Yes!</p>
+                <p class="footer-description">Creating the next generation of artificial intelligence. We build systems that don't just process data—they understand it.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-icon">Li</a>
+                    <a href="#" class="social-icon">X</a>
+                    <a href="#" class="social-icon">Gh</a>
+                </div>
             </div>
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4>Ecosystem</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="solutions.html">Solutions</a></li>
                     <li><a href="tech.html">The Tech</a></li>
-                    <li><a href="company.html">Company</a></li>
                 </ul>
             </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>Fashion Factory, SS Dhage Rd,</p>
-                <p>Gultekdi Rd/Shankar Rao Lohane Marg, Pune</p>
-                <p>Phone: <a href="tel:+917097095152">7097095152</a></p>
-                <a href="contact.html" class="btn-gold" style="padding: 0.5rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: inline-block;">Get in Touch</a>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="blogs.html">Journal</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact-info">
+                <h4>Headquarters</h4>
+                <div class="contact-item">
+                    <span>Location:</span>
+                    <p>Fashion Factory, SS Dhage Rd, near Shivaji Chowk, Pune 411037</p>
+                </div>
+                <div class="contact-item">
+                    <span>Phone:</span>
+                    <p><a href="tel:+917097095152" style="color: inherit; text-decoration: none;">+91 70970 95152</a></p>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 A AI. All rights reserved.</p>
+            <p>Answer is Yes!</p>
         </div>
     </footer>
-
+
 </body>
 </html>

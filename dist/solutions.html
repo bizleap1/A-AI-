@@ -6,7 +6,7 @@
     <title>Solutions | A AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <style>
         .solutions-grid {
             display: grid;
@@ -14,14 +14,54 @@
             gap: 2rem;
             margin-top: 3rem;
         }
+
         .solution-icon {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
+            width: 70px;
+            height: 70px;
+            background: rgba(212, 175, 55, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transition: all 0.4s;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .glass-card:hover .solution-icon {
+            background: var(--gold);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .glass-card:hover .solution-icon svg {
+            stroke: #000;
+        }
+
+        svg.premium-icon {
+            width: 32px;
+            height: 32px;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.4s;
+        }
+
+        /* Pulse animation for Icons */
+        @keyframes icon-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .solution-icon svg {
+            animation: icon-pulse 3s infinite ease-in-out;
         }
     </style>
-  <script type="module" crossorigin src="/assets/app-C5Xr_uYW.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-DXkx0-vB.css">
+  <script type="module" crossorigin src="/assets/app-DabS1KfT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-D2ZwWKkB.css">
 </head>
 <body>
     <nav>
@@ -34,106 +74,218 @@
             <a href="index.html">Home</a>
             <a href="solutions.html">Solutions</a>
             <a href="tech.html">The Tech</a>
-            <a href="company.html">Company</a>
+            <a href="blogs.html">Journal</a>
+            <a href="careers.html">Careers</a>
             <a href="contact.html">Contact</a>
         </div>
     </nav>
 
-
-
-    <section style="background: linear-gradient(135deg, #fefcf5 0%, #fff 100%);">
-        <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom: 4rem;">
-            <span class="section-tag" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 50px;">OUR SERVICES</span>
-            <h2 class="premium-title" style="font-size: 3.5rem;">Built for <span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Scale</span></h2>
+    <section style="background: linear-gradient(135deg, #fefcf5 0%, #fff 100%); padding: 12rem 10% 8rem;">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom: 5rem;">
+            <span class="section-tag" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 50px; color: var(--gold); font-weight: 700; letter-spacing: 2px;">OUR SERVICES</span>
+            <h2 class="premium-title" style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin-top: 1rem;">Built for <span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Scale</span></h2>
+            <p style="color: #666; font-size: 1.1rem; line-height: 1.8; margin-top: 1.5rem;">Our service ecosystem is engineered to transform fragmented data silos into unified engines of autonomous growth.</p>
         </div>
         
-        <div class="solutions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
-            <div class="glass-card service-trigger" data-service-id="voice-ai" style="cursor: pointer; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🎙️</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Voice AI Agent</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">AI-powered voice assistant to handle calls, follow-ups, and client communication 24/7.</p>
+        <div class="solutions-grid" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 3rem;">
+            
+            <!-- 01: Voice AI -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('voice-ai')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Voice AI Agent</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Sub-100ms low-latency voice synthesis for autonomous inbound/outbound customer reasoning.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card service-trigger" data-service-id="bespoke-plans" style="cursor: pointer; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">⚙️</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Bespoke AI Plans</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Tailored artificial intelligence strategies designed specifically for your unique operational needs.</p>
+
+            <!-- 02: Bespoke Plans -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('bespoke-plans')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                        <line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Bespoke AI Plans</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Strategic transformation blueprints tailored to your specific organizational data silos.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card service-trigger" data-service-id="speed-market" style="cursor: pointer; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🚀</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Speed to Market</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Our streamlined process gets you from concept to deployment 60% faster.</p>
+
+            <!-- 03: Speed to Market -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('speed-market')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Speed to Market</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Rapid-deployment frameworks that cut typical AI R&D cycles by over 60%.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card service-trigger" data-service-id="custom-solutions" style="cursor: pointer; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🛠️</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Custom Solutions</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">We build exactly what you need, ensuring your foundation is highly customized.</p>
+
+            <!-- 04: Custom Solutions -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('custom-solutions')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Custom Solutions</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Bespoke core engineering, custom fine-tuning, and proprietary model wrappers.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🤝</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Ongoing Support</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Continuous operational support and scaling maintenance to keep systems optimal.</p>
+
+            <!-- 05: Ongoing Support -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('ongoing-support')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Ongoing Support</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Operational continuity with 24/7 technical surveillance of model drift and efficiency.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">📞</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">AI Receptionist</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Intelligent automated reception to manage appointments and visitor queries with human-like precision.</p>
+
+            <!-- 06: AI Receptionist -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('ai-receptionist')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">AI Receptionist</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Frontline conversational cluster to qualify leads and manage bookings instantly.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🎬</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">AI Video Avatar</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Hyper-realistic photorealistic avatars for personalized video content and customer interactions.</p>
+
+            <!-- 07: Video Avatar -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('ai-video-avatar')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <polygon points="23 7 16 12 23 17 23 7"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">AI Video Avatar</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Photorealistic video synthesis for personalized scale and cinematic deepfake compliance.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">💬</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Omnichannel AI Hub</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Seamless integration of Chatbots + Voicebots across all communication channels for unified service.</p>
+
+            <!-- 08: Omnichannel Hub -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('omnichannel-hub')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Omnichannel AI Hub</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Symmetry of communication across WhatsApp, SMS, Web, and Voice channels.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">🔄</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">Backend Automation</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">End-to-end AI workflow automation to eliminate manual tasks and optimize backend processes.</p>
+
+            <!-- 09: Backend Automation -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('backend-automation')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Backend Automation</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Deep-layer workflow transformation to eliminate manual operational friction.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
-            <div class="glass-card" style="background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.03); border: 1px solid #eee; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(212,175,55,0.1)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.03)'; this.style.borderColor='#eee';">
-                <div class="solution-icon" style="background: rgba(212,175,55,0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 1.8rem; margin-bottom: 1.5rem;">📈</div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem;">CRM AI Optimizer</h3>
-                <p style="font-size: 0.95rem; color: #666; line-height: 1.7;">Intelligent CRM workflow automation to boost sales efficiency and deepen customer relationships.</p>
+
+            <!-- 10: CRM Optimizer -->
+            <div class="glass-card service-trigger" onclick="openServiceModal('crm-optimizer')" style="cursor: pointer; background: #fff; border-radius: 30px; padding: 3rem; border: 1px solid #f0f0f0; transition: all 0.4s;">
+                <div class="solution-icon">
+                    <svg class="premium-icon" viewBox="0 0 24 24">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">CRM AI Optimizer</h3>
+                <p style="font-size: 1rem; color: #666; line-height: 1.7; margin-bottom: 2rem;">Intelligent revenue intelligence to boost sales efficiency and intent prediction.</p>
+                <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 0.9rem;">
+                    EXPLORE SPECS <span style="margin-left: 0.5rem;">&rarr;</span>
+                </div>
             </div>
+
         </div>
     </section>
 
-    <section style="background: #fafafa; text-align: center; padding-bottom: 3rem; min-height: auto;">
-        <h2 class="manifesto-quote">Wherever the hardest problems live, we show up.</h2>
-        <a href="contact.html" class="btn-gold">Join the Frontier</a>
-    </section>
-
-    <footer class="site-footer" style="padding-top: 2rem;">
+    <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="logo">
                     <img src="/assets/logo-CAA6isEo.png" alt="A AI Logo">
                     <span>A AI</span>
                 </a>
-                <p class="footer-description">A AI Innovation, Research and Development. Answer is Yes!</p>
+                <p class="footer-description">Creating the next generation of artificial intelligence. We build systems that don't just process data—they understand it.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-icon">Li</a>
+                    <a href="#" class="social-icon">X</a>
+                    <a href="#" class="social-icon">Gh</a>
+                </div>
             </div>
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4>Ecosystem</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="solutions.html">Solutions</a></li>
                     <li><a href="tech.html">The Tech</a></li>
-                    <li><a href="company.html">Company</a></li>
                 </ul>
             </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>Fashion Factory, SS Dhage Rd,</p>
-                <p>Gultekdi Rd/Shankar Rao Lohane Marg, Pune</p>
-                <p>Phone: <a href="tel:+917097095152">7097095152</a></p>
-                <a href="contact.html" class="btn-gold" style="padding: 0.5rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: inline-block;">Get in Touch</a>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="blogs.html">Journal</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact-info">
+                <h4>Headquarters</h4>
+                <div class="contact-item">
+                    <span>Location:</span>
+                    <p>Fashion Factory, SS Dhage Rd, near Shivaji Chowk, Pune 411037</p>
+                </div>
+                <div class="contact-item">
+                    <span>Phone:</span>
+                    <p><a href="tel:+917097095152" style="color: inherit; text-decoration: none;">+91 70970 95152</a></p>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 A AI. All rights reserved.</p>
+            <p>Answer is Yes!</p>
         </div>
     </footer>
 
@@ -146,6 +298,6 @@
             </div>
         </div>
     </div>
-
+
 </body>
 </html>

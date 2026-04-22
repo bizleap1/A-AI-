@@ -6,9 +6,103 @@
     <title>The Tech | A AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/app-C5Xr_uYW.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-DXkx0-vB.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        .tech-hero {
+            padding: 12rem 10% 8rem;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent),
+                        linear-gradient(135deg, #fefcf5 0%, #fff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .pillar-card {
+            padding: 4rem;
+            border-radius: 32px;
+            background: #fff;
+            border: 1px solid #eee;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold);
+            box-shadow: 0 30px 70px rgba(212, 175, 55, 0.08);
+        }
+
+        .pillar-icon {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .horizon-section {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 10rem 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .horizon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+
+        .horizon-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3rem;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s;
+        }
+
+        .horizon-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .tech-stack-tag {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: #f5f5f5;
+            border: 1px solid #eee;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            margin: 0.4rem;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .tech-hero { padding: 8rem 5% 4rem; }
+            .tech-grid { grid-template-columns: 1fr; }
+            .blueprint-grid { grid-template-columns: 1fr; gap: 3rem; padding: 2rem; }
+            .blueprint-connector { display: none; }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/app-DabS1KfT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-D2ZwWKkB.css">
 </head>
 <body>
     <nav>
@@ -21,89 +115,262 @@
             <a href="index.html">Home</a>
             <a href="solutions.html">Solutions</a>
             <a href="tech.html">The Tech</a>
-            <a href="company.html">Company</a>
+            <a href="blogs.html">Journal</a>
+            <a href="careers.html">Careers</a>
             <a href="contact.html">Contact</a>
         </div>
     </nav>
 
-    <section style="padding: 10rem 10% 6rem; background: linear-gradient(135deg, #fefcf5 0%, #fff 100%);">
-        <!-- THE SYNTHESIS Title (Replaces Our Services) -->
-        <div style="text-align: left; margin-bottom: 8rem;">
-            <span class="section-tag" style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 50px; margin-bottom: 1rem;">THE SYNTHESIS</span>
-            <h1 class="premium-title" style="font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1rem;">Fulfilling <br><span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Ancient Wisdom</span></h1>
-            <p class="philosophy-text" style="color: #666; margin: 0; max-width: 700px; text-align: left;">Why settle for slow and manual? Here’s what smart automation can unlock for your business.</p>
+    <div class="tech-hero">
+        <div style="max-width: 1000px;">
+            <span class="section-tag">ENGINEERING THE ORIGIN</span>
+            <h1 class="premium-title" style="font-size: clamp(3.5rem, 6vw, 5.5rem); margin-top: 1.5rem;">Foundation <br><span style="background: linear-gradient(90deg, var(--gold), #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Architectures</span></h1>
+            <p class="philosophy-text" style="text-align: left; margin: 2rem 0; font-size: 1.4rem;">We don't just build applications; we engineer the foundational intelligences of the next human civilization.</p>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 10rem;">
-
-            <!-- Service Block 1: Automate It -->
-            <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap;">
-                <div class="glass-card" style="flex: 1; min-width: 300px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border-top: 4px solid var(--gold); transform: perspective(1000px) rotateY(5deg); transition: transform 0.5s;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) translateY(-10px)';" onmouseout="this.style.transform='perspective(1000px) rotateY(5deg)';">
-                    <span class="section-tag">01 — AUTOMATE IT</span>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Break free from repetitive busywork.</h3>
-                    <p style="color: #666; font-size: 0.95rem; line-height: 1.7;">Transform workflows with sharp, efficient AI systems that eliminate friction and maximize output.</p>
+        <div class="tech-grid">
+            <!-- NLP -->
+            <div class="pillar-card reveal-on-scroll">
+                <div class="circuit-pattern"></div>
+                <span class="pillar-icon">🧬</span>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 1.5rem;">Cognitive NLP</h3>
+                <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">Moving beyond simple text prediction, our Natural Language systems utilize deep semantic reasoning to understand intent, nuance, and emotional valence at a superhuman scale.</p>
+                <div class="stat-row">
+                    <span class="stat-tag">INFERENCE &lt; 80ms</span>
+                    <span class="stat-tag">CONTEXT 128k</span>
+                    <span class="stat-tag">ACCURACY 99.2%</span>
                 </div>
-                <div style="flex: 1.5; min-width: 300px;">
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Eliminate repetitive tasks with precision-built AI workflows</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Free up your team’s time for high-impact work</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Automate lead follow-ups, scheduling, and data entry</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Seamlessly integrate with your existing tools and platforms</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Service Block 2: Smarter. Faster. Always On. -->
-            <div style="display: flex; gap: 4rem; align-items: center; flex-direction: row-reverse; flex-wrap: wrap;">
-                <div class="glass-card" style="flex: 1; min-width: 300px; background: #0a0a0a; color: #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.2); border-top: 4px solid #fff; transform: perspective(1000px) rotateY(-5deg); transition: transform 0.5s;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) translateY(-10px)';" onmouseout="this.style.transform='perspective(1000px) rotateY(-5deg)';">
-                    <span class="section-tag" style="color: rgba(255,255,255,0.7);">02 — ALWAYS ON</span>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #fff;">Smarter. Faster. Always On.</h3>
-                    <p style="color: #aaa; font-size: 0.95rem; line-height: 1.7;">AI never sleeps. Scale your business while our tech handles the grind round the clock.</p>
-                </div>
-                <div style="flex: 1.5; min-width: 300px;">
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> AI solutions that work 24/7 — no downtime, no burnout</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Instant response systems for support, sales, and more</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Faster decision-making with real-time data analysis</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Scalable infrastructure built for your future</li>
-                    </ul>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem;">
+                    <span class="tech-stack-tag">Transformer Fine-tuning</span>
+                    <span class="tech-stack-tag">Contextual Reasoning</span>
+                    <span class="tech-stack-tag">Multi-intent Logic</span>
                 </div>
             </div>
 
-            <!-- Service Block 3: ROI, Delivered Fast. -->
-            <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap;">
-                <div class="glass-card" style="flex: 1; min-width: 300px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border-top: 4px solid var(--gold); transform: perspective(1000px) rotateY(5deg); transition: transform 0.5s;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) translateY(-10px)';" onmouseout="this.style.transform='perspective(1000px) rotateY(5deg)';">
-                    <span class="section-tag">03 — ROI FAST</span>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">ROI, Delivered Fast.</h3>
-                    <p style="color: #666; font-size: 0.95rem; line-height: 1.7;">Rapid setup, clear value, measurable returns. No fluff — just performance-driven automation.</p>
+            <!-- Vision -->
+            <div class="pillar-card reveal-on-scroll">
+                <div class="circuit-pattern"></div>
+                <span class="pillar-icon">👁️</span>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 1.5rem;">Spatial Vision</h3>
+                <h4 style="font-size: 0.9rem; color: var(--gold); margin-bottom: 1rem; letter-spacing: 2px;">REAL-TIME INTELLIGENCE</h4>
+                <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">Advanced computer vision that doesn't just "see"—it understands. Real-time object detection, spatial analysis, and hyper-accurate OCR for automated environments.</p>
+                <div class="stat-row">
+                    <span class="stat-tag">LATENCY &lt; 50ms</span>
+                    <span class="stat-tag">PRECISION 98.5%</span>
+                    <span class="stat-tag">mAP 0.94</span>
                 </div>
-                <div style="flex: 1.5; min-width: 300px;">
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Get fully deployed in days — not weeks or months</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> See measurable results with clear KPIs from day one</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Transparent reporting and ongoing optimization included</li>
-                    </ul>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem;">
+                    <span class="tech-stack-tag">YOLO-v9 Integration</span>
+                    <span class="tech-stack-tag">Dense OCR</span>
+                    <span class="tech-stack-tag">Geometric Analysis</span>
                 </div>
             </div>
 
-            <!-- Service Block 4: Transform at Scale. -->
-            <div style="display: flex; gap: 4rem; align-items: center; flex-direction: row-reverse; flex-wrap: wrap;">
-                <div class="glass-card" style="flex: 1; min-width: 300px; background: #0a0a0a; color: #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.2); border-top: 4px solid #fff; transform: perspective(1000px) rotateY(-5deg); transition: transform 0.5s;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) translateY(-10px)';" onmouseout="this.style.transform='perspective(1000px) rotateY(-5deg)';">
-                    <span class="section-tag" style="color: rgba(255,255,255,0.7);">04 — SCALE</span>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #fff;">Transform at Scale.</h3>
-                    <p style="color: #aaa; font-size: 0.95rem; line-height: 1.7;">Break operational silos and unlock efficiency across your entire enterprise architecture.</p>
+            <!-- RAG -->
+            <div class="pillar-card reveal-on-scroll">
+                <div class="circuit-pattern"></div>
+                <span class="pillar-icon">🧠</span>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 1.5rem;">Contextual RAG</h3>
+                <h4 style="font-size: 0.9rem; color: var(--gold); margin-bottom: 1rem; letter-spacing: 2px;">KNOWLEDGE RETRIEVAL</h4>
+                <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">Retrieval-Augmented Generation that eliminates hallucination. We build high-density vector database clusters that ensure your AI only speaks from your proprietary truth.</p>
+                <div class="stat-row">
+                    <span class="stat-tag">QUERY &lt; 30ms</span>
+                    <span class="stat-tag">PRECISION 100%</span>
+                    <span class="stat-tag">100M+ ITEMS</span>
                 </div>
-                <div style="flex: 1.5; min-width: 300px;">
-                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Save millions annually by automating repetitive processes</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Unlock workforce capacity for strategic initiatives</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Increase conversion rates with intelligent qualification</li>
-                        <li style="display: flex; gap: 1rem; align-items: center; color: #555;"><span style="color: var(--gold); font-weight: bold;">•</span> Seamlessly integrate with existing enterprise software</li>
-                    </ul>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem;">
+                    <span class="tech-stack-tag">Vector Embedding Clusters</span>
+                    <span class="tech-stack-tag">Zero-Hallucination Logic</span>
+                    <span class="tech-stack-tag">Semantic Indexing</span>
                 </div>
             </div>
+
+            <!-- Agents -->
+            <div class="pillar-card reveal-on-scroll">
+                <div class="circuit-pattern"></div>
+                <span class="pillar-icon">🤖</span>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 1.5rem;">Agentic Cycles</h3>
+                <h4 style="font-size: 0.9rem; color: var(--gold); margin-bottom: 1rem; letter-spacing: 2px;">AUTONOMOUS EXECUTION</h4>
+                <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">The era of the "Chatbot" is over. We build autonomous agents capable of multi-step planning, tool utilization, and self-correcting logic across enterprise software.</p>
+                <div class="stat-row">
+                    <span class="stat-tag">SUCCESS 92%</span>
+                    <span class="stat-tag">SELF-HEAL 100%</span>
+                    <span class="stat-tag">TOOLS 50+</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem;">
+                    <span class="tech-stack-tag">Auto-GPT Architectures</span>
+                    <span class="tech-stack-tag">Tool-Calling Logic</span>
+                    <span class="tech-stack-tag">Recursive Planning</span>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- ARCHITECTURE BLUEPRINT -->
+    <section style="padding: 10rem 10%; background: #fdfdfd; border-top: 1px solid #eee;">
+        <div style="text-align: center; margin-bottom: 6rem;">
+            <span class="section-tag" style="background: rgba(212, 175, 55, 0.1); color: var(--gold);">DATA FLOW</span>
+            <h2 class="premium-title">Architecture <span style="color: var(--gold);">Blueprint</span></h2>
+            <p style="color: #888; max-width: 600px; margin: 0 auto;">Visualizing the high-speed transit of proprietary intelligence across our secured neural clusters.</p>
+        </div>
+
+        <div class="blueprint-grid">
+            <div class="blueprint-connector"></div>
+            <div class="blueprint-node reveal-on-scroll">
+                <h4 style="margin-bottom: 1rem; color: var(--gold); letter-spacing: 2px;">01. DATA INGESTION</h4>
+                <p style="font-size: 0.85rem; color: #666; line-height: 1.6;">Secure ingestion of multi-modal client data streams, CRM interactions, and legacy documentation via zero-trust enclaves.</p>
+            </div>
+            <div class="blueprint-node reveal-on-scroll" style="border-color: var(--gold); background: #fdfdf5; transform: scale(1.05);">
+                <h4 style="margin-bottom: 1rem; color: #111; letter-spacing: 2px;">02. A-CORE REASONING</h4>
+                <p style="font-size: 0.85rem; color: #666; line-height: 1.6;">Contextual vector retrieval integrated with deep reasoning LLMs and proprietary semantic safeguards to ensure absolute truth.</p>
+                <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.7rem;">
+                    <span style="width: 10px; height: 10px; background: var(--gold); border-radius: 50%; display: inline-block; animation: node-pulse 2s infinite;"></span>
+                    <span style="width: 10px; height: 10px; background: var(--gold); border-radius: 50%; display: inline-block; animation: node-pulse 2s infinite 0.5s;"></span>
+                    <span style="width: 10px; height: 10px; background: var(--gold); border-radius: 50%; display: inline-block; animation: node-pulse 2s infinite 1s;"></span>
+                </div>
+            </div>
+            <div class="blueprint-node reveal-on-scroll">
+                <h4 style="margin-bottom: 1rem; color: var(--gold); letter-spacing: 2px;">03. ACTION EXECUTION</h4>
+                <p style="font-size: 0.85rem; color: #666; line-height: 1.6;">Autonomous tool-calling, API triggers, and real-time insight generation delivered across enterprise platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TERMINAL DEMO -->
+    <section style="padding: 10rem 10%; background: #000;">
+        <div style="display: flex; gap: 6rem; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <span style="color: var(--gold); letter-spacing: 3px; font-weight: 700;">ORIGIN PROTOCOLS</span>
+                <h2 class="premium-title" style="color: #fff; margin-top: 1.5rem;">Engineered for <br><span style="color: var(--gold);">Extreme Precision.</span></h2>
+                <p style="color: #888; font-size: 1.1rem; line-height: 1.8; margin-top: 2rem;">Watch our core protocols initialize in real-time. This is the heartbeat of our infrastructure—secure, reliable, and exceptionally fast.</p>
+            </div>
+            <div style="flex: 1; min-width: 400px;">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dot" style="background: #ff5f56;"></div>
+                        <div class="terminal-dot" style="background: #ffbd2e;"></div>
+                        <div class="terminal-dot" style="background: #27c93f;"></div>
+                    </div>
+                    <div class="terminal-body" id="tech-terminal">
+                        <div>> initialize a-core-v4.2... [OK]</div>
+                        <div>> connecting to secure-vector-cluster-01... [DONE]</div>
+                        <div>> primary reasoning engine: ACTIVE</div>
+                        <div>> latency: 74ms | context_window: 128,000</div>
+                        <div>> running security audit... [NO THREATS FOUND]</div>
+                        <div>> systems operational. A AI is ready.<span class="terminal-cursor"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- R&D HORIZON -->
+    <section class="horizon-section">
+        <div style="position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);"></div>
+        
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <span style="color: var(--gold); letter-spacing: 4px; font-weight: 700; font-size: 0.9rem;">2047 & BEYOND</span>
+            <h2 class="premium-title" style="color: #fff; margin-top: 1.5rem;">The <span style="color: var(--gold);">Horizon</span> Protocols</h2>
+            <p style="color: #888; font-size: 1.2rem; line-height: 1.8;">While we build for today, we research for the century. Our labs are focused on the foundational breakthroughs that will define the era of AGI.</p>
+        </div>
+
+        <div class="horizon-grid">
+            <div class="horizon-card reveal-on-scroll">
+                <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 1rem; font-family: var(--font-heading);">AGI Foundations</h3>
+                <p style="color: #777; font-size: 0.95rem; line-height: 1.7;">Building the recursive self-improvement loops necessary for Artifical General Intelligence that aligns with human flourishing.</p>
+            </div>
+            <div class="horizon-card reveal-on-scroll">
+                <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 1rem; font-family: var(--font-heading);">Quantum Context</h3>
+                <p style="color: #777; font-size: 0.95rem; line-height: 1.7;">Simulating non-classical compute environments to prepare AI logic for the era of high-fidelity quantum processors.</p>
+            </div>
+            <div class="horizon-card reveal-on-scroll">
+                <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 1rem; font-family: var(--font-heading);">Neural Interfacing</h3>
+                <p style="color: #777; font-size: 0.95rem; line-height: 1.7;">Researching the ethical and technical boundaries of high-bandwidth MAN-Machine symbiotic interfaces.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section id="security" style="background: #fff; padding: 10rem 10%;">
+        <div style="display: flex; gap: 6rem; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <span class="section-tag">SECURITY FIRST</span>
+                <h2 class="premium-title" style="font-size: 3.5rem;">Zero-Trust <br><span style="color: var(--gold);">Engineering</span></h2>
+                <p style="font-size: 1.2rem; color: #555; line-height: 1.8; margin: 2rem 0;">Your data is your most valuable asset. We engineer isolation layers that ensure your proprietary intelligence never touches a public training set.</p>
+                
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
+                    <li style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                        <span style="font-size: 1.5rem; color: var(--gold);">🛡️</span>
+                        <div>
+                            <strong style="display: block; font-size: 1.2rem; margin-bottom: 0.5rem;">Private Cloud Enclaves</strong>
+                            <p style="color: #777;">Dedicated compute environments that exist entirely behind your firewall.</p>
+                        </div>
+                    </li>
+                    <li style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                        <span style="font-size: 1.5rem; color: var(--gold);">🔐</span>
+                        <div>
+                            <strong style="display: block; font-size: 1.2rem; margin-bottom: 0.5rem;">End-to-End Edge Encryption</strong>
+                            <p style="color: #777;">Zero-visibility data pipelines from user interaction to final inference.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 350px;">
+                <div class="glass-card" style="background: #fdfdfd; padding: 4rem; border: 1px solid #eee; text-align: center;">
+                    <h4 style="font-family: var(--font-heading); color: var(--gold); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 2.5rem; font-weight: 700;">THE GLOBAL STANDARD</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div style="padding: 1.5rem; border: 1px solid #f0f0f0; border-radius: 12px; font-weight: 700;">PyTorch</div>
+                        <div style="padding: 1.5rem; border: 1px solid #f0f0f0; border-radius: 12px; font-weight: 700;">TensorFlow</div>
+                        <div style="padding: 1.5rem; border: 1px solid #f0f0f0; border-radius: 12px; font-weight: 700;">LangChain</div>
+                        <div style="padding: 1.5rem; border: 1px solid #f0f0f0; border-radius: 12px; font-weight: 700;">Pinecone</div>
+                        <div style="padding: 1.5rem; border: 1px solid #f0f0f0; border-radius: 12px; font-weight: 700;">NVIDIA CUDA</div>
+                        <div style="padding: 1.5rem; border: 1px solid #f0f0f0; border-radius: 12px; font-weight: 700;">OpenAI SDK</div>
+                    </div>
+                    <p style="margin-top: 3rem; color: #999; font-size: 0.9rem;">Building with the world’s most powerful tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH & STANDARDS -->
+    <section id="research" style="padding: 10rem 10%; background: #fcfcfc; border-top: 1px solid #eee;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem;">
+                <div>
+                    <span class="section-tag" style="background: rgba(0,0,0,0.05); color: #666;">ENGINEERING STANDARDS</span>
+                    <h3 style="font-family: var(--font-heading); font-size: 2rem; margin: 1.5rem 0;">Protocol Adherence</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.05rem;">Our systems are engineered to the highest global standards of reliability and safety. We implement rigorous testing cycles that include adversarial red-teaming, bias mitigation audits, and automated hallucination detection layers.</p>
+                    
+                    <div style="margin-top: 3rem;">
+                        <h4 style="font-size: 0.8rem; letter-spacing: 2px; color: #999; margin-bottom: 1.5rem; text-transform: uppercase;">Global Compliance</h4>
+                        <div style="display: flex; gap: 2rem; opacity: 0.5; flex-wrap: wrap;">
+                            <strong style="font-size: 1.2rem;">SOC2 Type II</strong>
+                            <strong style="font-size: 1.2rem;">GDPR</strong>
+                            <strong style="font-size: 1.2rem;">HIPAA</strong>
+                            <strong style="font-size: 1.2rem;">ISO 27001</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="section-tag" style="background: rgba(212, 175, 55, 0.1); color: var(--gold);">RESEARCH ROADMAP</span>
+                    <h3 style="font-family: var(--font-heading); font-size: 2rem; margin: 1.5rem 0;">A-Core Evolution</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.05rem;">Continuous model evolution is at our center. The A-Core protocol moves through quarterly foundational updates, integrating the newest breakthroughs in state-space models, mixture-of-experts (MoE) architectures, and long-form memory persistence.</p>
+                    
+                    <ul style="margin-top: 2rem; list-style: none; padding: 0; color: #777; font-size: 0.95rem; line-height: 2.5;">
+                        <li><span style="color: var(--gold); margin-right: 10px;">•</span> Real-time Recursive Fine-Tuning</li>
+                        <li><span style="color: var(--gold); margin-right: 10px;">•</span> Cross-Domain Knowledge Synthesis</li>
+                        <li><span style="color: var(--gold); margin-right: 10px;">•</span> Multi-Modal Agency Frameworks</li>
+                        <li><span style="color: var(--gold); margin-right: 10px;">•</span> Sub-millisecond Inference Optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: #fafafa; text-align: center; padding-bottom: 6rem; min-height: auto;">
+        <h2 class="manifesto-quote">The future isn't something we predict. <br>It's something we <span style="color: var(--gold);">Engineer.</span></h2>
+        <a href="contact.html" class="btn-gold">Consult Our Engineers</a>
     </section>
 
     <footer class="site-footer">
@@ -113,29 +380,46 @@
                     <img src="/assets/logo-CAA6isEo.png" alt="A AI Logo">
                     <span>A AI</span>
                 </a>
-                <p class="footer-description">A AI Innovation, Research and Development. Answer is Yes!</p>
+                <p class="footer-description">Creating the next generation of artificial intelligence. We build systems that don't just process data—they understand it.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-icon">Li</a>
+                    <a href="#" class="social-icon">X</a>
+                    <a href="#" class="social-icon">Gh</a>
+                </div>
             </div>
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4>Ecosystem</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="solutions.html">Solutions</a></li>
                     <li><a href="tech.html">The Tech</a></li>
-                    <li><a href="company.html">Company</a></li>
                 </ul>
             </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>Fashion Factory, SS Dhage Rd,</p>
-                <p>Gultekdi Rd/Shankar Rao Lohane Marg, Pune</p>
-                <p>Phone: <a href="tel:+917097095152">7097095152</a></p>
-                <a href="contact.html" class="btn-gold" style="padding: 0.5rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: inline-block;">Get in Touch</a>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="blogs.html">Journal</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact-info">
+                <h4>Headquarters</h4>
+                <div class="contact-item">
+                    <span>Location:</span>
+                    <p>Fashion Factory, SS Dhage Rd, near Shivaji Chowk, Pune 411037</p>
+                </div>
+                <div class="contact-item">
+                    <span>Phone:</span>
+                    <p><a href="tel:+917097095152" style="color: inherit; text-decoration: none;">+91 70970 95152</a></p>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 A AI. All rights reserved.</p>
+            <p>Answer is Yes!</p>
         </div>
     </footer>
-
+
 </body>
 </html>
