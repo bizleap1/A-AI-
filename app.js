@@ -47,7 +47,8 @@ function initAICore() {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-        renderer.setSize(600, 600);
+        const coreSize = window.innerWidth < 768 ? window.innerWidth * 0.8 : 600;
+        renderer.setSize(coreSize, coreSize);
 
         // Core Sphere
         const sphereGeo = new THREE.SphereGeometry(1.2, 64, 64);
@@ -122,8 +123,9 @@ function startCoreActivationSequence() {
     tl.to(core, { opacity: 0.3, filter: "blur(5px)", duration: 1 });
 
     // Phase 2: Mechanical Opening
-    tl.to(pLeft, { x: "-380px", rotateY: -20, duration: 2.5 }, 0.5);
-    tl.to(pRight, { x: "380px", rotateY: 20, duration: 2.5 }, 0.5);
+    const moveDist = window.innerWidth < 768 ? "100px" : "380px";
+    tl.to(pLeft, { x: `-${moveDist}`, rotateY: -20, duration: 2.5 }, 0.5);
+    tl.to(pRight, { x: moveDist, rotateY: 20, duration: 2.5 }, 0.5);
 
     // Phase 3: Core Ignite
     tl.to(core, {
